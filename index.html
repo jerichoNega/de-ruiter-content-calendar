@@ -101,17 +101,17 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 <div class="sidebar" id="sidebar">
   <div class="sb-logo">
     <div class="logo">plan<em>r</em></div>
-    <div class="logo-sub">Content Management</div>
+    <div class="logo-sub">Implementation Management</div>
   </div>
   
   <div class="cookies-badge">
     <div class="cb-lbl">Cookies Group</div>
-    <div class="cb-txt">Developed from scratch for De Ruiter's Bakkerij Implementation.</div>
+    <div class="cb-txt">Proprietary system developed from scratch for De Ruiter's Bakkerij.</div>
   </div>
 
   <div class="sb-scroll">
     <div class="sb-section">
-      <div class="sb-label">Client</div>
+      <div class="sb-label">Project Client</div>
       <input class="company-field" id="companyInput" oninput="S.company=this.value;saveS()">
     </div>
     <div class="sb-section">
@@ -130,7 +130,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
     <div class="metrics">
       <div class="metric"><div class="metric-lbl">Pieces</div><div class="metric-val" id="mPieces">0</div></div>
       <div class="metric"><div class="metric-lbl">Team Cap</div><div class="metric-val" id="mHours">12h</div></div>
-      <div class="metric"><div class="metric-lbl">Weekly Allocation</div><div class="metric-val" id="mBudget">180m</div></div>
+      <div class="metric"><div class="metric-lbl">Allocation</div><div class="metric-val" id="mBudget">180m</div></div>
       <div class="metric"><div class="metric-lbl">Utilisation</div><div class="metric-val" id="mCap">100%</div></div>
     </div>
   </div>
@@ -147,10 +147,10 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       <div id="calBody"></div>
     </div>
     
-    <div style="margin-top:32px; padding:20px; background:#fff; border-radius:12px; border:1px solid var(--bd);">
-      <h4 style="font-family:'Syne'; margin-bottom:8px;">System Governance Note</h4>
-      <p style="font-size:12px; color:var(--txm); line-height:1.6;">
-        This interactive system was built from scratch by <strong>Cookies Group</strong> to manage the "Factory & Engine" model. It validates content volume against the 3.0h/week management cap defined in the strategic proposal. 
+    <div style="margin-top:32px; padding:24px; background:#fff; border-radius:12px; border:1px solid var(--bd);">
+      <h4 style="font-family:'Syne'; margin-bottom:10px; color:var(--acc);">Technical Governance Declaration</h4>
+      <p style="font-size:12.5px; color:var(--txm); line-height:1.7;">
+        This interactive deployment system was developed from scratch by <strong>Cookies Group</strong> to manage the "Factory & Engine" resource model. It provides a real-time validation of the 3.0h/week management cap against the high-frequency nostalgic content distribution required for the De Ruiter implementation.
       </p>
     </div>
   </div>
@@ -167,6 +167,7 @@ const DEFAULT_SERIES = [
 const DEFAULT_MONTHS = [
   {id:'m1',name:'Month 1 — Production & Launch',pieces:10},
   {id:'m2',name:'Month 2 — Engagement Peak',pieces:13},
+  {id:'m3',name:'Month 3 — Sustain & Review',pieces:10},
 ];
 
 let S = {
@@ -182,27 +183,31 @@ function ck(m,s,w){ return `${m}|${s}|${w}`; }
 function seed(){
   const a=(m,s,w,t,h,n)=>{const k=ck(m,s,w);if(!S.items[k])S.items[k]=[];S.items[k].push({title:t,hours:h,meta:n});};
 
-  // ── MONTH 1 ──
+  // ── MONTH 1 (FROM SCREENSHOT) ──
   [1,2,3,4].forEach(w => {
     a('m1','blog',w,`Blog ${w}: ${['Why Dutch nostalgia hits different','Gezelligheid: the feeling you grew up with','The taste you cannot recreate','Why no one leaves after one coffee'][w-1]}`,'2h','Web + Pinterest + IG');
     a('m1','reels',w,`Reel ep. ${w}: ${['Stress: exam deadline','Stress: missing the bus','Stress: bad presentation','Stress: moving to new city'][w-1]}`,'1.5h','IG + TikTok');
   });
-  // Monthly YouTube logic
   a('m1','youtube',1,'YT ep. 1: Father + Son: food traditions and memories','4h','YouTube + Shots');
-  // Tin Challenge Launch
   a('m1','tin',4,'Tin Challenge - launch #whatisinmytin: seed post + rules','1h','IG, FB, TikTok');
 
-  // ── MONTH 2 ──
+  // ── MONTH 2 (FROM SCREENSHOT) ──
   [1,2,3,4].forEach(w => {
     a('m2','blog',w,`Blog ${w+4}: ${['The habits you accidentally kept','Growing Up Dutch: the routines','What your grandma never explained','The foods that hit different as a kid'][w-1]}`,'2h','Web + Pinterest + IG');
     a('m2','reels',w,`Reel ep. ${w+4}: ${['Stress: fighting with flatmates','Stress: first week at new job','Stress: loosing your keys','Stress: long commute'][w-1]}`,'1.5h','IG + TikTok');
-    // Tin Challenge Sequence
     const tinTitles = ['Reshare entries + story replies','Paid Meta boost 20-30 NL','Top entries story series','Pinterest pins best entries'];
     const tinMetas = ['IG Stories','IG, FB (paid)','IG Stories','Pinterest'];
     a('m2','tin',w,`Tin Challenge - wk ${w+1}: ${tinTitles[w-1]}`,'0.5h',tinMetas[w-1]);
   });
-  // Monthly YouTube logic
   a('m2','youtube',1,'YT ep. 2: Neighbours across generations: doorstep habits','4h','YouTube + Shots');
+
+  // ── MONTH 3 (SYNTHESIZED SUSTAIN PHASE) ──
+  [1,2,3,4].forEach(w => {
+    a('m3','blog',w,`Blog ${w+8}: ${['Small rituals, big memories','Rainy Sundays and speculaas','Why traditions feel timeless','The legacy of the Dutch bakery'][w-1]}`,'2h','Web + Pinterest + IG');
+    a('m3','reels',w,`Reel ep. ${w+8}: ${['Stress: deadline crunch','Stress: rainy cycling','Stress: overdue grocery run','Full Strategy Performance Review'][w-1]}`,'1.5h','IG + TikTok');
+  });
+  a('m3','youtube',1,'YT ep. 3: Siblings: who got the last speculaas?','4h','YouTube + Shots');
+  a('m3','tin',1,'Tin Challenge — wk 6: winner highlight + best-of post','1h','IG, FB, TikTok');
 }
 
 function render(){
@@ -227,8 +232,8 @@ function render(){
 }
 
 function updateMonthName(v){ S.months.find(x=>x.id===S.activeMonth).name=v; render(); }
-function saveS(){ localStorage.setItem('cookies_build_v2', JSON.stringify(S)); }
-function loadS(){ const d = localStorage.getItem('cookies_build_v2'); if(d) S=JSON.parse(d); else seed(); }
+function saveS(){ localStorage.setItem('cookies_complete_v1', JSON.stringify(S)); }
+function loadS(){ const d = localStorage.getItem('cookies_complete_v1'); if(d) S=JSON.parse(d); else seed(); }
 
 loadS();
 render();
