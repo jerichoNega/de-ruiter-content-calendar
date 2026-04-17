@@ -22,13 +22,13 @@ html { font-size: 14px; }
 body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--tx); display: flex; height: 100vh; overflow: hidden; line-height: 1.5; }
 
 /* ─── SIDEBAR ─── */
-.sidebar { width: 252px; flex-shrink: 0; background: var(--sb); display: flex; flex-direction: column; height: 100vh; overflow: hidden; transition: transform .3s ease; z-index: 100; }
+.sidebar { width: 252px; flex-shrink: 0; background: var(--sb); display: flex; flex-direction: column; height: 100vh; overflow: hidden; transition: transform .28s cubic-bezier(.4,0,.2,1); z-index: 40; }
 .sb-logo { padding: 22px 18px 18px; border-bottom: 1px solid var(--sb3); }
 .logo { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -.03em; }
 .logo em { color: var(--acc); font-style: normal; }
 .logo-sub { font-size: 10px; color: var(--sbm); letter-spacing: .08em; text-transform: uppercase; margin-top: 1px; }
 
-/* Attribution Badge */
+/* Cookies Group Attribution */
 .dev-badge { margin: 12px; padding: 12px; border-radius: 10px; background: #1a1a24; border: 1px solid var(--sb4); }
 .dev-lbl { font-size: 9px; text-transform: uppercase; color: var(--acc); font-weight: 800; margin-bottom: 4px; }
 .dev-name { font-size: 11px; color: #fff; line-height: 1.4; opacity: 0.9; }
@@ -40,63 +40,71 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 .company-field { background: var(--sb3); border: 1px solid var(--sb4); border-radius: 8px; padding: 8px 11px; width: 100%; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #fff; outline: none; transition: border-color .15s; }
 .month-list { list-style: none; }
 .month-item { display: flex; align-items: center; gap: 9px; padding: 8px; border-radius: 8px; cursor: pointer; transition: background .1s; margin-bottom: 2px; }
+.month-item:hover { background: var(--sb2); }
 .month-item.active { background: var(--sb3); }
 .month-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sb4); }
 .month-item.active .month-dot { background: var(--acc); }
-.month-name-text { font-size: 12.5px; color: var(--sbt); flex: 1; }
+.month-name-text { font-size: 12.5px; color: var(--sbt); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ─── MAIN ─── */
 .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
 .main-header { padding: 24px 28px 0; flex-shrink: 0; background: var(--bg); }
-.breadcrumb { font-size: 11px; color: var(--txl); margin-bottom: 6px; font-weight: 500; letter-spacing: 0.05em; }
+.breadcrumb { font-size: 11px; color: var(--txl); margin-bottom: 6px; font-weight: 500; }
 .header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 16px; }
 .month-title-input { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -.03em; color: var(--tx); background: transparent; border: none; outline: none; flex: 1; }
 
 .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-.metric { background: var(--card); border: 1px solid var(--bd); border-radius: var(--r); padding: 14px 18px; position: relative; overflow: hidden; }
+.metric { background: var(--card); border: 1px solid var(--bd); border-radius: var(--r); padding: 14px 18px; }
 .metric-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--txm); margin-bottom: 4px; letter-spacing: 0.05em; }
 .metric-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--tx); line-height: 1; }
 
+/* Toolbar */
 .toolbar { display: flex; align-items: center; justify-content: space-between; padding: 0 28px 12px; flex-shrink: 0; }
+.view-tabs { display: flex; gap: 8px; }
 
 /* Calendar Grid */
 .cal-wrap { flex: 1; overflow-y: auto; overflow-x: auto; padding: 0 28px 28px; }
-.cal-grid { background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); overflow: hidden; min-width: 850px; box-shadow: var(--shadow); }
-.cal-head { display: grid; grid-template-columns: 180px repeat(4, 1fr); background: #F3F0EA; border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 10; }
+.cal-grid { background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); overflow: hidden; min-width: 900px; box-shadow: var(--shadow); }
+.cal-head { display: grid; grid-template-columns: 200px repeat(4, 1fr); background: #F3F0EA; border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 10; }
 .ch-cell { padding: 12px 14px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--txm); border-right: 1px solid var(--bd); }
-.cal-row { display: grid; grid-template-columns: 180px repeat(4, 1fr); border-bottom: 1px solid var(--bd); min-height: 100px; }
-.row-label { padding: 14px; border-right: 1px solid var(--bd); background: #FAFAF8; }
-.row-bar { height: 4px; width: 28px; border-radius: 2px; margin-bottom: 6px; }
-.row-lname { font-size: 11.5px; font-weight: 700; color: var(--tx); line-height: 1.3; }
-.cal-cell { padding: 8px; border-right: 1px solid var(--bd); cursor: pointer; position: relative; min-height: 100px; }
-.c-card { border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; font-size: 11px; transition: transform 0.1s; border: 1px solid transparent; }
-.c-card:hover { transform: translateY(-2px); }
+.cal-row { display: grid; grid-template-columns: 200px repeat(4, 1fr); border-bottom: 1px solid var(--bd); min-height: 120px; }
+.row-label { padding: 16px; border-right: 1px solid var(--bd); background: #FAFAF8; }
+.row-bar { height: 4px; width: 30px; border-radius: 2px; margin-bottom: 8px; }
+.row-lname { font-size: 12px; font-weight: 700; color: var(--tx); line-height: 1.3; }
+.row-lsub { font-size: 10px; color: var(--txl); margin-top: 4px; }
+
+.cal-cell { padding: 10px; border-right: 1px solid var(--bd); cursor: pointer; position: relative; min-height: 120px; }
+.cal-cell:hover { background: #fafaf8; }
+.c-card { border-radius: 8px; padding: 10px; margin-bottom: 8px; font-size: 11.5px; transition: transform 0.1s; border: 1px solid transparent; }
 .c-card-title { font-weight: 700; margin-bottom: 4px; line-height: 1.4; }
 .c-card-meta { font-size: 9.5px; opacity: 0.8; font-weight: 500; }
 
-/* ─── MOBILE ADAPTATION ─── */
+/* ─── MOBILE RESPONSIVE ─── */
 @media (max-width: 768px) {
   body { flex-direction: column; overflow-y: auto; height: auto; }
-  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; transform: translateX(-100%); box-shadow: 20px 0 60px rgba(0,0,0,0.2); }
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; transform: translateX(-100%); z-index: 200; box-shadow: 20px 0 60px rgba(0,0,0,0.2); }
   .sidebar.mobile-open { transform: translateX(0); }
   .main { height: auto; padding-bottom: 80px; }
   .main-header { padding: 16px; }
   .metrics { grid-template-columns: 1fr 1fr; gap: 8px; }
   .toolbar { padding: 0 16px 12px; }
-  
-  /* GRID TO CARD REFLOW */
   .cal-wrap { padding: 0 16px 16px; }
   .cal-grid { min-width: 0; border: none; background: transparent; box-shadow: none; }
   .cal-head { display: none; }
   .cal-row { display: block; background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); margin-bottom: 24px; overflow: hidden; }
   .row-label { border-right: none; border-bottom: 1px solid var(--bd); padding: 16px; }
-  .cal-cell { border-right: none; border-bottom: 1px dashed #eee; min-height: auto; padding: 12px 16px; }
-  .cal-cell:last-child { border-bottom: none; }
+  .cal-cell { border-right: none; border-bottom: 1px dashed #eee; min-height: auto; padding: 14px 16px; }
   .cal-cell::before { content: "Week " attr(data-week); display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--txl); margin-bottom: 8px; }
-  
+  .bottom-nav { display: flex !important; position: fixed; bottom: 0; width: 100%; height: var(--bottom-nav-h); background: var(--sb); border-top: 1px solid var(--sb3); z-index: 300; align-items: center; justify-content: space-around; }
   #mobileMenuBtn { display: flex !important; }
 }
 
+/* ─── BUTTONS ─── */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--bd); background: var(--card); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--tx); cursor: pointer; transition: all .15s; }
+.btn-acc { background: var(--acc); border-color: var(--acc); color: #fff; }
+.view-tab.active { background: var(--tx); color: var(--card); border-color: var(--tx); }
+
+.bottom-nav { display: none; }
 #mobileMenuBtn { display: none; position: fixed; bottom: 24px; right: 24px; z-index: 1000; width: 56px; height: 56px; border-radius: 50%; background: var(--acc); color: white; border: none; box-shadow: var(--shadow-lg); font-size: 24px; align-items: center; justify-content: center; cursor: pointer; }
 </style>
 </head>
@@ -107,13 +115,13 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 <div class="sidebar" id="sidebar">
   <div class="sb-logo">
     <div class="logo">plan<em>r</em></div>
-    <div class="logo-sub">Content Strategy Tool</div>
+    <div class="logo-sub">Implementation System</div>
   </div>
   
   <div class="dev-badge">
     <div class="dev-lbl">Cookies Group</div>
     <div class="dev-name">Beyaricko Degu</div>
-    <div class="dev-sub">Built from scratch for MCMS PPD.</div>
+    <div class="dev-sub">Built from scratch for MCMS Master Assignment.</div>
   </div>
 
   <div class="sb-scroll">
@@ -130,39 +138,33 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 
 <div class="main">
   <div class="main-header">
-    <div class="breadcrumb">DEDICATED SYSTEM — SCRATCH BUILT BY COOKIES GROUP</div>
+    <div class="breadcrumb">DEDICATED SYSTEM — COOKIES GROUP ARCHITECTURE</div>
     <div class="header-row">
       <input class="month-title-input" id="monthTitleInput" oninput="updateMonthName(this.value)">
     </div>
     <div class="metrics">
-      <div class="metric"><div class="metric-lbl">Pieces</div><div class="metric-val" id="mPieces">0</div></div>
-      <div class="metric"><div class="metric-lbl">Management Cap</div><div class="metric-val" id="mHours">3.0h</div></div>
-      <div class="metric"><div class="metric-lbl">Monthly Budget</div><div class="metric-val" id="mBudget">€0</div></div>
+      <div class="metric"><div class="metric-lbl">Total Pieces</div><div class="metric-val" id="mPieces">0</div></div>
+      <div class="metric"><div class="metric-lbl">Weekly Cap</div><div class="metric-val">12h</div></div>
+      <div class="metric"><div class="metric-lbl">Est. Spend</div><div class="metric-val" id="mBudget">€0</div></div>
       <div class="metric"><div class="metric-lbl">Utilisation</div><div class="metric-val" id="mCap">100%</div></div>
     </div>
   </div>
 
   <div class="toolbar">
-    <div style="display:flex;gap:8px">
-      <button class="view-tab btn btn-sm active" data-view="calendar" onclick="setView('calendar')">Calendar</button>
-      <button class="view-tab btn btn-sm" data-view="strategy" onclick="setView('strategy')">Strategy & Governance</button>
+    <div class="view-tabs">
+      <button class="view-tab btn btn-sm active" id="btnCal" onclick="setView('calendar')">Calendar View</button>
+      <button class="view-tab btn btn-sm" id="btnStrat" onclick="setView('strategy')">Strategy & Governance</button>
     </div>
   </div>
 
-  <div class="cal-wrap" id="calWrap">
-    <div class="cal-grid">
-      <div class="cal-head">
-        <div class="ch-cell">Strategy Prototype</div>
-        <div class="ch-cell">Week 1</div>
-        <div class="ch-cell">Week 2</div>
-        <div class="ch-cell">Week 3</div>
-        <div class="ch-cell">Week 4</div>
-      </div>
-      <div id="calBody"></div>
+  <div class="cal-wrap" id="viewContainer">
     </div>
-  </div>
+</div>
 
-  <div id="strategyWrap" style="display:none; overflow-y:auto; padding: 28px;"></div>
+<div class="bottom-nav">
+  <div class="bn-item" style="color:#fff;" onclick="setView('calendar')">Grid</div>
+  <div class="bn-item" style="color:#fff;" onclick="setView('strategy')">Strategy</div>
+  <div class="bn-item" style="color:#fff;" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')">Menu</div>
 </div>
 
 <script>
@@ -174,9 +176,9 @@ const DEFAULT_SERIES = [
 ];
 
 const DEFAULT_MONTHS = [
-  {id:'m1',name:'Month 1 — Production & Launch', budMin:1800, pieces:10},
-  {id:'m2',name:'Month 2 — Engagement Peak', budMin:600, pieces:13},
-  {id:'m3',name:'Month 3 — Sustain & Review', budMin:300, pieces:10},
+  {id:'m1',name:'Month 1 — Production & Launch', budMin:1800},
+  {id:'m2',name:'Month 2 — Engagement Peak', budMin:600},
+  {id:'m3',name:'Month 3 — Sustain & Review', budMin:300},
 ];
 
 let S = {
@@ -193,74 +195,96 @@ function ck(m,s,w){ return `${m}|${s}|${w}`; }
 function seed(){
   const a=(m,s,w,t,meta)=>{const k=ck(m,s,w);if(!S.items[k])S.items[k]=[];S.items[k].push({title:t,meta:meta});};
 
-  // Month 1
-  [1,2,3,4].forEach(w => {
-    a('m1','blog',w,`Blog ${w}: ${['Why Dutch nostalgia hits different','Gezelligheid: growing up','Taste memories','The coffee ritual'][w-1]}`, 'Web + Pinterest + IG');
-    a('m1','reels',w,`Reel ep. ${w}: ${['Exam deadline','Missing the bus','Bad presentation','Moving city'][w-1]}`, 'IG + TikTok');
-  });
-  a('m1','youtube',1,'YT ep. 1: Father + Son memories', 'YouTube + Shots');
-  a('m1','tin',4,'Tin Challenge — Launch & Rules', 'IG, FB, TikTok');
+  // Populate Month 1, 2, and 3
+  ['m1','m2','m3'].forEach((m, mIdx) => {
+    [1,2,3,4].forEach(w => {
+      // Blog Cycle
+      const blogs = [
+        ['Nostalgia hits different','Gezelligheid: growing up','Taste memories','The coffee ritual'],
+        ['Kept habits','Dutch routines','Grandma secrets','Childhood foods'],
+        ['Small rituals','Rainy Sundays','Timelessness','The Legacy']
+      ];
+      a(m,'blog',w,`Blog: ${blogs[mIdx][w-1]}`, 'Web + Pinterest + IG');
+      
+      // Reels Cycle
+      const reels = [
+        ['Exam deadline','Missing the bus','Bad presentation','Moving city'],
+        ['Flatmate fights','New job','Lost keys','Long commute'],
+        ['Deadline crunch','Rainy cycling','Grocery runs','Full Review']
+      ];
+      a(m,'reels',w,`Reel: ${reels[mIdx][w-1]}`, 'IG + TikTok');
+    });
 
-  // Month 2
-  [1,2,3,4].forEach(w => {
-    a('m2','blog',w,`Blog ${w+4}: ${['Kept habits','Dutch routines','Grandma secrets','Childhood foods'][w-1]}`, 'Web + Pinterest + IG');
-    a('m2','reels',w,`Reel ep. ${w+4}: ${['Flatmate fights','New job','Lost keys','Long commute'][w-1]}`, 'IG + TikTok');
-    const tinT = ['Reshare entries','Meta boost','Top entries','Best of Pinterest'];
-    a('m2','tin',w,`Tin Challenge: ${tinT[w-1]}`, 'UGC Drive');
+    // YouTube - Strictly Week 1
+    const ytTitles = ['Father + Son Memories', 'Neighbours & Doorsteps', 'Siblings & Speculaas'];
+    a(m,'youtube',1, `YT Ep. ${mIdx+1}: ${ytTitles[mIdx]}`, 'YouTube + Shots');
   });
-  a('m2','youtube',1,'YT ep. 2: Neighbours & Doorsteps', 'YouTube + Shots');
 
-  // Month 3
-  [1,2,3,4].forEach(w => {
-    a('m3','blog',w,`Blog ${w+8}: ${['Small rituals','Rainy Sundays','Timelessness','The Legacy'][w-1]}`, 'Web + Pinterest + IG');
-    a('m3','reels',w,`Reel ep. ${w+8}: ${['Deadline crunch','Rainy cycling','Grocery runs','Full Review'][w-1]}`, 'IG + TikTok');
-  });
-  a('m3','youtube',1,'YT ep. 3: Siblings & Speculaas', 'YouTube + Shots');
+  // #WhatIsInMyTin Challenge Progression
+  a('m1','tin',4,'Tin Challenge — Launch & Rules', 'UGC Drive Start');
+  a('m2','tin',1,'Tin Challenge — Reshare Entries', 'Engagement');
+  a('m2','tin',2,'Tin Challenge — Meta Boost', 'Paid Amplification');
+  a('m2','tin',3,'Tin Challenge — Top Entries', 'Story Series');
+  a('m2','tin',4,'Tin Challenge — Best of Pinterest', 'Pinterest Distribution');
   a('m3','tin',1,'Tin Challenge — Final Winner', 'Campaign Close');
 }
 
 function render(){
   document.getElementById('companyInput').value = S.company;
   document.getElementById('monthTitleInput').value = S.months.find(x=>x.id===S.activeMonth).name;
+  
   const ml = document.getElementById('monthList');
   ml.innerHTML = S.months.map(m => `<li class="month-item ${m.id===S.activeMonth?'active':''}" onclick="S.activeMonth='${m.id}';render()"><span class="month-dot"></span><span class="month-name-text">${m.name}</span></li>`).join('');
 
-  if(S.activeView==='calendar'){
-    document.getElementById('calWrap').style.display='block';
-    document.getElementById('strategyWrap').style.display='none';
-    const body = document.getElementById('calBody');
-    body.innerHTML = S.series.map(s => {
+  const container = document.getElementById('viewContainer');
+  
+  if(S.activeView === 'calendar'){
+    let html = `<div class="cal-grid"><div class="cal-head"><div class="ch-cell">Prototype</div><div class="ch-cell">Week 1</div><div class="ch-cell">Week 2</div><div class="ch-cell">Week 3</div><div class="ch-cell">Week 4</div></div>`;
+    html += S.series.map(s => {
       const cells = [1,2,3,4].map(w => {
         const items = S.items[ck(S.activeMonth, s.id, w)] || [];
         const cards = items.map(it => `<div class="c-card" style="background:${s.bg};color:${s.tc}"><div class="c-card-title">${it.title}</div><div class="c-card-meta">${s.pubDay} — ${it.meta}</div></div>`).join('');
         return `<div class="cal-cell" data-week="${w}">${cards}</div>`;
       }).join('');
       return `<div class="cal-row"><div class="row-label"><div class="row-bar" style="background:${s.dot}"></div><div class="row-lname">${s.name}</div></div>${cells}</div>`;
-    }).join('');
+    }).join('') + `</div>`;
+    container.innerHTML = html;
   } else {
-    document.getElementById('calWrap').style.display='none';
-    document.getElementById('strategyWrap').style.display='block';
-    document.getElementById('strategyWrap').innerHTML = `
-      <div style="max-width:800px; background:#fff; padding:32px; border-radius:16px; border:1px solid var(--bd);">
-        <h2 style="font-family:'Syne'; color:var(--acc); margin-bottom:12px;">Technical Governance Declaration</h2>
-        <p style="font-size:14px; line-height:1.7; color:var(--txm); margin-bottom:24px;">
-          This interactive deployment system was developed <strong>from scratch by Cookies Group</strong> (Lead Dev: Beyaricko Degu) to manage the "Factory & Engine" resource model. 
+    container.innerHTML = `
+      <div style="max-width:850px; background:#fff; padding:40px; border-radius:16px; border:1px solid var(--bd); box-shadow:var(--shadow);">
+        <h2 style="font-family:'Syne'; color:var(--acc); margin-bottom:12px;">Strategy Governance: 12h/Week Model</h2>
+        <p style="font-size:15px; line-height:1.7; color:var(--txm); margin-bottom:30px;">
+          This interactive system was developed <strong>from scratch by Cookies Group (Dev: Beyaricko Degu)</strong>. It manages the "Factory & Engine" resource model, ensuring the nostalgic content distribution for De Ruiter's Bakkerij fits within a strict <strong>12-hour weekly team capacity</strong>.
         </p>
-        <div style="padding:20px; background:var(--bg); border-radius:12px;">
-          <h4 style="font-family:'Syne'; margin-bottom:8px;">Model: Factory & Engine</h4>
-          <p style="font-size:12.5px; color:var(--txm);"> kreative Production is separated from technical distribution to deliver high-quality content within a strict 3.0h/week team management cap.</p>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+          <div style="padding:20px; background:var(--bg); border-radius:12px;">
+            <h4 style="font-family:'Syne'; margin-bottom:10px;">The Content Factory</h4>
+            <p style="font-size:13px; color:var(--txm);">High-impact production (YouTube/Reels) is batched once per month to maximize efficiency and maintain visual consistency.</p>
+          </div>
+          <div style="padding:20px; background:var(--bg); border-radius:12px;">
+            <h4 style="font-family:'Syne'; margin-bottom:10px;">The Distribution Engine</h4>
+            <p style="font-size:13px; color:var(--txm);">Iterative weekly distribution (Blogs/UGC/Pinterest) is managed within the remaining weekly hours to ensure constant market presence.</p>
+          </div>
         </div>
       </div>`;
   }
-  const mData = S.months.find(x=>x.id===S.activeMonth);
-  document.getElementById('mPieces').innerText = mData.pieces;
-  document.getElementById('mBudget').innerText = '€' + mData.budMin;
+
+  // Update Metrics
+  const keys = Object.keys(S.items).filter(k=>k.startsWith(S.activeMonth+'|'));
+  document.getElementById('mPieces').innerText = keys.reduce((s,k)=>s+(S.items[k]||[]).length, 0);
+  document.getElementById('mBudget').innerText = '€' + S.months.find(x=>x.id===S.activeMonth).budMin;
+  document.getElementById('mCap').innerText = '100%';
 }
 
-function setView(v){ S.activeView=v; render(); }
-function updateMonthName(v){ S.months.find(x=>x.id===S.activeMonth).name=v; render(); }
-function saveS(){ localStorage.setItem('cookies_final_v1', JSON.stringify(S)); }
-function loadS(){ const d=localStorage.getItem('cookies_final_v1'); if(d) S=JSON.parse(d); else seed(); }
+function setView(v){ 
+  S.activeView = v; 
+  document.getElementById('btnCal').classList.toggle('active', v==='calendar');
+  document.getElementById('btnStrat').classList.toggle('active', v==='strategy');
+  render(); 
+}
+function updateMonthName(v){ S.months.find(x=>x.id===S.activeMonth).name=v; saveS(); render(); }
+function saveS(){ localStorage.setItem('cookies_final_prod_v1', JSON.stringify(S)); }
+function loadS(){ const d=localStorage.getItem('cookies_final_prod_v1'); if(d) S=JSON.parse(d); else seed(); }
 
 loadS();
 render();
