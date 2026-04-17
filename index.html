@@ -15,6 +15,7 @@
   --r: 10px; --rl: 14px;
   --shadow: 0 2px 8px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
   --shadow-lg: 0 20px 60px rgba(0,0,0,.14), 0 4px 16px rgba(0,0,0,.08);
+  --bottom-nav-h: 65px;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 14px; }
@@ -27,18 +28,18 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 .logo em { color: var(--acc); font-style: normal; }
 .logo-sub { font-size: 10px; color: var(--sbm); letter-spacing: .08em; text-transform: uppercase; margin-top: 1px; }
 
-/* Cookies Group Branding */
-.cookies-badge { margin: 12px; padding: 12px; border-radius: 10px; background: #1a1a24; border: 1px solid var(--sb4); }
-.cb-lbl { font-size: 9px; text-transform: uppercase; color: var(--acc); font-weight: 800; margin-bottom: 4px; }
-.cb-txt { font-size: 11px; color: #fff; line-height: 1.4; opacity: 0.9; }
+/* Attribution Badge */
+.dev-badge { margin: 12px; padding: 12px; border-radius: 10px; background: #1a1a24; border: 1px solid var(--sb4); }
+.dev-lbl { font-size: 9px; text-transform: uppercase; color: var(--acc); font-weight: 800; margin-bottom: 4px; }
+.dev-name { font-size: 11px; color: #fff; line-height: 1.4; opacity: 0.9; }
+.dev-sub { font-size: 10px; color: var(--sbm); margin-top: 2px; }
 
 .sb-scroll { flex: 1; overflow-y: auto; padding-bottom: 8px; }
 .sb-section { padding: 16px 12px 4px; }
 .sb-label { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sbm); padding: 0 6px; margin-bottom: 6px; }
-.company-field { background: var(--sb3); border: 1px solid var(--sb4); border-radius: 8px; padding: 8px 11px; width: 100%; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #fff; outline: none; }
+.company-field { background: var(--sb3); border: 1px solid var(--sb4); border-radius: 8px; padding: 8px 11px; width: 100%; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #fff; outline: none; transition: border-color .15s; }
 .month-list { list-style: none; }
 .month-item { display: flex; align-items: center; gap: 9px; padding: 8px; border-radius: 8px; cursor: pointer; transition: background .1s; margin-bottom: 2px; }
-.month-item:hover { background: var(--sb2); }
 .month-item.active { background: var(--sb3); }
 .month-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sb4); }
 .month-item.active .month-dot { background: var(--acc); }
@@ -47,51 +48,56 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 /* ─── MAIN ─── */
 .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
 .main-header { padding: 24px 28px 0; flex-shrink: 0; background: var(--bg); }
-.breadcrumb { font-size: 11px; color: var(--txl); margin-bottom: 6px; font-weight: 500; }
+.breadcrumb { font-size: 11px; color: var(--txl); margin-bottom: 6px; font-weight: 500; letter-spacing: 0.05em; }
 .header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 16px; }
 .month-title-input { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -.03em; color: var(--tx); background: transparent; border: none; outline: none; flex: 1; }
 
-.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-.metric { background: var(--card); border: 1px solid var(--bd); border-radius: var(--r); padding: 14px 18px; }
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.metric { background: var(--card); border: 1px solid var(--bd); border-radius: var(--r); padding: 14px 18px; position: relative; overflow: hidden; }
 .metric-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--txm); margin-bottom: 4px; letter-spacing: 0.05em; }
-.metric-val { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: var(--tx); line-height: 1; }
+.metric-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--tx); line-height: 1; }
 
+.toolbar { display: flex; align-items: center; justify-content: space-between; padding: 0 28px 12px; flex-shrink: 0; }
+
+/* Calendar Grid */
 .cal-wrap { flex: 1; overflow-y: auto; overflow-x: auto; padding: 0 28px 28px; }
-.cal-grid { background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); overflow: hidden; min-width: 900px; box-shadow: var(--shadow); }
-.cal-head { display: grid; grid-template-columns: 200px repeat(4, 1fr); background: #F3F0EA; border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 10; }
-.ch-cell { padding: 12px 14px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--txm); border-right: 1px solid var(--bd); letter-spacing: 0.08em; }
-.cal-row { display: grid; grid-template-columns: 200px repeat(4, 1fr); border-bottom: 1px solid var(--bd); min-height: 120px; }
-.row-label { padding: 16px; border-right: 1px solid var(--bd); background: #FAFAF8; }
-.row-bar { height: 4px; width: 30px; border-radius: 2px; margin-bottom: 8px; }
-.row-lname { font-size: 12px; font-weight: 700; color: var(--tx); line-height: 1.3; }
-.row-lsub { font-size: 10px; color: var(--txl); margin-top: 4px; }
-
-.cal-cell { padding: 10px; border-right: 1px solid var(--bd); cursor: pointer; position: relative; }
-.cal-cell:hover { background: #fafaf8; }
-.c-card { border-radius: 8px; padding: 10px; margin-bottom: 8px; font-size: 11.5px; border: 1px solid transparent; transition: transform 0.1s; }
+.cal-grid { background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); overflow: hidden; min-width: 850px; box-shadow: var(--shadow); }
+.cal-head { display: grid; grid-template-columns: 180px repeat(4, 1fr); background: #F3F0EA; border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 10; }
+.ch-cell { padding: 12px 14px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--txm); border-right: 1px solid var(--bd); }
+.cal-row { display: grid; grid-template-columns: 180px repeat(4, 1fr); border-bottom: 1px solid var(--bd); min-height: 100px; }
+.row-label { padding: 14px; border-right: 1px solid var(--bd); background: #FAFAF8; }
+.row-bar { height: 4px; width: 28px; border-radius: 2px; margin-bottom: 6px; }
+.row-lname { font-size: 11.5px; font-weight: 700; color: var(--tx); line-height: 1.3; }
+.cal-cell { padding: 8px; border-right: 1px solid var(--bd); cursor: pointer; position: relative; min-height: 100px; }
+.c-card { border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; font-size: 11px; transition: transform 0.1s; border: 1px solid transparent; }
 .c-card:hover { transform: translateY(-2px); }
 .c-card-title { font-weight: 700; margin-bottom: 4px; line-height: 1.4; }
-.c-card-meta { font-size: 10px; opacity: 0.8; font-weight: 500; }
+.c-card-meta { font-size: 9.5px; opacity: 0.8; font-weight: 500; }
 
-/* ─── MOBILE ─── */
+/* ─── MOBILE ADAPTATION ─── */
 @media (max-width: 768px) {
   body { flex-direction: column; overflow-y: auto; height: auto; }
-  .sidebar { position: fixed; left: 0; width: 280px; transform: translateX(-100%); }
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; transform: translateX(-100%); box-shadow: 20px 0 60px rgba(0,0,0,0.2); }
   .sidebar.mobile-open { transform: translateX(0); }
-  .main { height: auto; padding-bottom: 100px; }
+  .main { height: auto; padding-bottom: 80px; }
   .main-header { padding: 16px; }
   .metrics { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .toolbar { padding: 0 16px 12px; }
+  
+  /* GRID TO CARD REFLOW */
   .cal-wrap { padding: 0 16px 16px; }
   .cal-grid { min-width: 0; border: none; background: transparent; box-shadow: none; }
   .cal-head { display: none; }
-  .cal-row { display: block; background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); margin-bottom: 24px; box-shadow: var(--shadow); }
-  .row-label { border-right: none; border-bottom: 1px solid var(--bd); }
-  .cal-cell { border-right: none; border-bottom: 1px solid #f0f0f0; min-height: auto; padding: 14px 16px; }
+  .cal-row { display: block; background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); margin-bottom: 24px; overflow: hidden; }
+  .row-label { border-right: none; border-bottom: 1px solid var(--bd); padding: 16px; }
+  .cal-cell { border-right: none; border-bottom: 1px dashed #eee; min-height: auto; padding: 12px 16px; }
+  .cal-cell:last-child { border-bottom: none; }
   .cal-cell::before { content: "Week " attr(data-week); display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--txl); margin-bottom: 8px; }
+  
   #mobileMenuBtn { display: flex !important; }
 }
 
-#mobileMenuBtn { display: none; position: fixed; bottom: 24px; right: 24px; z-index: 1000; width: 56px; height: 56px; border-radius: 50%; background: var(--acc); color: white; border: none; box-shadow: var(--shadow-lg); font-size: 24px; align-items: center; justify-content: center; }
+#mobileMenuBtn { display: none; position: fixed; bottom: 24px; right: 24px; z-index: 1000; width: 56px; height: 56px; border-radius: 50%; background: var(--acc); color: white; border: none; box-shadow: var(--shadow-lg); font-size: 24px; align-items: center; justify-content: center; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -101,12 +107,13 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 <div class="sidebar" id="sidebar">
   <div class="sb-logo">
     <div class="logo">plan<em>r</em></div>
-    <div class="logo-sub">Implementation Management</div>
+    <div class="logo-sub">Content Strategy Tool</div>
   </div>
   
-  <div class="cookies-badge">
-    <div class="cb-lbl">Cookies Group</div>
-    <div class="cb-txt">Proprietary system developed from scratch for De Ruiter's Bakkerij.</div>
+  <div class="dev-badge">
+    <div class="dev-lbl">Cookies Group</div>
+    <div class="dev-name">Beyaricko Degu</div>
+    <div class="dev-sub">Built from scratch for MCMS PPD.</div>
   </div>
 
   <div class="sb-scroll">
@@ -115,7 +122,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       <input class="company-field" id="companyInput" oninput="S.company=this.value;saveS()">
     </div>
     <div class="sb-section">
-      <div class="sb-label">Implementation Phases</div>
+      <div class="sb-label">Implementation Cycle</div>
       <ul class="month-list" id="monthList"></ul>
     </div>
   </div>
@@ -123,19 +130,26 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 
 <div class="main">
   <div class="main-header">
-    <div class="breadcrumb">INTERNAL DEDICATED SYSTEM — PROJECT PPD MCMS</div>
+    <div class="breadcrumb">DEDICATED SYSTEM — SCRATCH BUILT BY COOKIES GROUP</div>
     <div class="header-row">
       <input class="month-title-input" id="monthTitleInput" oninput="updateMonthName(this.value)">
     </div>
     <div class="metrics">
       <div class="metric"><div class="metric-lbl">Pieces</div><div class="metric-val" id="mPieces">0</div></div>
-      <div class="metric"><div class="metric-lbl">Team Cap</div><div class="metric-val" id="mHours">12h</div></div>
-      <div class="metric"><div class="metric-lbl">Allocation</div><div class="metric-val" id="mBudget">180m</div></div>
+      <div class="metric"><div class="metric-lbl">Management Cap</div><div class="metric-val" id="mHours">3.0h</div></div>
+      <div class="metric"><div class="metric-lbl">Monthly Budget</div><div class="metric-val" id="mBudget">€0</div></div>
       <div class="metric"><div class="metric-lbl">Utilisation</div><div class="metric-val" id="mCap">100%</div></div>
     </div>
   </div>
 
-  <div class="cal-wrap">
+  <div class="toolbar">
+    <div style="display:flex;gap:8px">
+      <button class="view-tab btn btn-sm active" data-view="calendar" onclick="setView('calendar')">Calendar</button>
+      <button class="view-tab btn btn-sm" data-view="strategy" onclick="setView('strategy')">Strategy & Governance</button>
+    </div>
+  </div>
+
+  <div class="cal-wrap" id="calWrap">
     <div class="cal-grid">
       <div class="cal-head">
         <div class="ch-cell">Strategy Prototype</div>
@@ -146,33 +160,29 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       </div>
       <div id="calBody"></div>
     </div>
-    
-    <div style="margin-top:32px; padding:24px; background:#fff; border-radius:12px; border:1px solid var(--bd);">
-      <h4 style="font-family:'Syne'; margin-bottom:10px; color:var(--acc);">Technical Governance Declaration</h4>
-      <p style="font-size:12.5px; color:var(--txm); line-height:1.7;">
-        This interactive deployment system was developed from scratch by <strong>Cookies Group</strong> to manage the "Factory & Engine" resource model. It provides a real-time validation of the 3.0h/week management cap against the high-frequency nostalgic content distribution required for the De Ruiter implementation.
-      </p>
-    </div>
   </div>
+
+  <div id="strategyWrap" style="display:none; overflow-y:auto; padding: 28px;"></div>
 </div>
 
 <script>
 const DEFAULT_SERIES = [
   {id:'blog',name:'Blog (+ Pinterest paid + IG Story + IG carousel)',bg:'#DBEAFE',tc:'#1E40AF',dot:'#3B82F6',pubDay:'Tue',pubTime:'10:00', teamHours:'2h'},
-  {id:'youtube',name:'YouTube Interview Series',bg:'#FEF3C7',tc:'#78350F',dot:'#F59E0B',pubDay:'Thu',pubTime:'14:00', teamHours:'4h'},
+  {id:'youtube',name:'YouTube Interview Series',bg:'#FEF3C7',tc:'#78350F',dot:'#F59E0B',pubDay:'Thu (Monthly)',pubTime:'14:00', teamHours:'4h'},
   {id:'tin',name:'Tin Challenge #whatisinmytin',bg:'#D1FAE5',tc:'#064E3B',dot:'#10B981',pubDay:'Mon',pubTime:'11:00', teamHours:'0.5h'},
   {id:'reels',name:'IG/TikTok Series Relief Series',bg:'#EDE9FE',tc:'#4C1D95',dot:'#7C3AED',pubDay:'Wed/Thu',pubTime:'18:00', teamHours:'1.5h'},
 ];
 
 const DEFAULT_MONTHS = [
-  {id:'m1',name:'Month 1 — Production & Launch',pieces:10},
-  {id:'m2',name:'Month 2 — Engagement Peak',pieces:13},
-  {id:'m3',name:'Month 3 — Sustain & Review',pieces:10},
+  {id:'m1',name:'Month 1 — Production & Launch', budMin:1800, pieces:10},
+  {id:'m2',name:'Month 2 — Engagement Peak', budMin:600, pieces:13},
+  {id:'m3',name:'Month 3 — Sustain & Review', budMin:300, pieces:10},
 ];
 
 let S = {
   company: "De Ruiter's Bakkerij",
   activeMonth: 'm1',
+  activeView: 'calendar',
   months: JSON.parse(JSON.stringify(DEFAULT_MONTHS)),
   series: JSON.parse(JSON.stringify(DEFAULT_SERIES)),
   items: {}
@@ -181,59 +191,76 @@ let S = {
 function ck(m,s,w){ return `${m}|${s}|${w}`; }
 
 function seed(){
-  const a=(m,s,w,t,h,n)=>{const k=ck(m,s,w);if(!S.items[k])S.items[k]=[];S.items[k].push({title:t,hours:h,meta:n});};
+  const a=(m,s,w,t,meta)=>{const k=ck(m,s,w);if(!S.items[k])S.items[k]=[];S.items[k].push({title:t,meta:meta});};
 
-  // ── MONTH 1 (FROM SCREENSHOT) ──
+  // Month 1
   [1,2,3,4].forEach(w => {
-    a('m1','blog',w,`Blog ${w}: ${['Why Dutch nostalgia hits different','Gezelligheid: the feeling you grew up with','The taste you cannot recreate','Why no one leaves after one coffee'][w-1]}`,'2h','Web + Pinterest + IG');
-    a('m1','reels',w,`Reel ep. ${w}: ${['Stress: exam deadline','Stress: missing the bus','Stress: bad presentation','Stress: moving to new city'][w-1]}`,'1.5h','IG + TikTok');
+    a('m1','blog',w,`Blog ${w}: ${['Why Dutch nostalgia hits different','Gezelligheid: growing up','Taste memories','The coffee ritual'][w-1]}`, 'Web + Pinterest + IG');
+    a('m1','reels',w,`Reel ep. ${w}: ${['Exam deadline','Missing the bus','Bad presentation','Moving city'][w-1]}`, 'IG + TikTok');
   });
-  a('m1','youtube',1,'YT ep. 1: Father + Son: food traditions and memories','4h','YouTube + Shots');
-  a('m1','tin',4,'Tin Challenge - launch #whatisinmytin: seed post + rules','1h','IG, FB, TikTok');
+  a('m1','youtube',1,'YT ep. 1: Father + Son memories', 'YouTube + Shots');
+  a('m1','tin',4,'Tin Challenge — Launch & Rules', 'IG, FB, TikTok');
 
-  // ── MONTH 2 (FROM SCREENSHOT) ──
+  // Month 2
   [1,2,3,4].forEach(w => {
-    a('m2','blog',w,`Blog ${w+4}: ${['The habits you accidentally kept','Growing Up Dutch: the routines','What your grandma never explained','The foods that hit different as a kid'][w-1]}`,'2h','Web + Pinterest + IG');
-    a('m2','reels',w,`Reel ep. ${w+4}: ${['Stress: fighting with flatmates','Stress: first week at new job','Stress: loosing your keys','Stress: long commute'][w-1]}`,'1.5h','IG + TikTok');
-    const tinTitles = ['Reshare entries + story replies','Paid Meta boost 20-30 NL','Top entries story series','Pinterest pins best entries'];
-    const tinMetas = ['IG Stories','IG, FB (paid)','IG Stories','Pinterest'];
-    a('m2','tin',w,`Tin Challenge - wk ${w+1}: ${tinTitles[w-1]}`,'0.5h',tinMetas[w-1]);
+    a('m2','blog',w,`Blog ${w+4}: ${['Kept habits','Dutch routines','Grandma secrets','Childhood foods'][w-1]}`, 'Web + Pinterest + IG');
+    a('m2','reels',w,`Reel ep. ${w+4}: ${['Flatmate fights','New job','Lost keys','Long commute'][w-1]}`, 'IG + TikTok');
+    const tinT = ['Reshare entries','Meta boost','Top entries','Best of Pinterest'];
+    a('m2','tin',w,`Tin Challenge: ${tinT[w-1]}`, 'UGC Drive');
   });
-  a('m2','youtube',1,'YT ep. 2: Neighbours across generations: doorstep habits','4h','YouTube + Shots');
+  a('m2','youtube',1,'YT ep. 2: Neighbours & Doorsteps', 'YouTube + Shots');
 
-  // ── MONTH 3 (SYNTHESIZED SUSTAIN PHASE) ──
+  // Month 3
   [1,2,3,4].forEach(w => {
-    a('m3','blog',w,`Blog ${w+8}: ${['Small rituals, big memories','Rainy Sundays and speculaas','Why traditions feel timeless','The legacy of the Dutch bakery'][w-1]}`,'2h','Web + Pinterest + IG');
-    a('m3','reels',w,`Reel ep. ${w+8}: ${['Stress: deadline crunch','Stress: rainy cycling','Stress: overdue grocery run','Full Strategy Performance Review'][w-1]}`,'1.5h','IG + TikTok');
+    a('m3','blog',w,`Blog ${w+8}: ${['Small rituals','Rainy Sundays','Timelessness','The Legacy'][w-1]}`, 'Web + Pinterest + IG');
+    a('m3','reels',w,`Reel ep. ${w+8}: ${['Deadline crunch','Rainy cycling','Grocery runs','Full Review'][w-1]}`, 'IG + TikTok');
   });
-  a('m3','youtube',1,'YT ep. 3: Siblings: who got the last speculaas?','4h','YouTube + Shots');
-  a('m3','tin',1,'Tin Challenge — wk 6: winner highlight + best-of post','1h','IG, FB, TikTok');
+  a('m3','youtube',1,'YT ep. 3: Siblings & Speculaas', 'YouTube + Shots');
+  a('m3','tin',1,'Tin Challenge — Final Winner', 'Campaign Close');
 }
 
 function render(){
   document.getElementById('companyInput').value = S.company;
   document.getElementById('monthTitleInput').value = S.months.find(x=>x.id===S.activeMonth).name;
-  
   const ml = document.getElementById('monthList');
   ml.innerHTML = S.months.map(m => `<li class="month-item ${m.id===S.activeMonth?'active':''}" onclick="S.activeMonth='${m.id}';render()"><span class="month-dot"></span><span class="month-name-text">${m.name}</span></li>`).join('');
 
-  const body = document.getElementById('calBody');
-  body.innerHTML = S.series.map(s => {
-    const cells = [1,2,3,4].map(w => {
-      const items = S.items[ck(S.activeMonth, s.id, w)] || [];
-      const cards = items.map(it => `<div class="c-card" style="background:${s.bg};color:${s.tc}"><div class="c-card-title">${it.title}</div><div class="c-card-meta">${s.pubDay} ${s.pubTime} — ${it.meta}</div></div>`).join('');
-      return `<div class="cal-cell" data-week="${w}">${cards}</div>`;
+  if(S.activeView==='calendar'){
+    document.getElementById('calWrap').style.display='block';
+    document.getElementById('strategyWrap').style.display='none';
+    const body = document.getElementById('calBody');
+    body.innerHTML = S.series.map(s => {
+      const cells = [1,2,3,4].map(w => {
+        const items = S.items[ck(S.activeMonth, s.id, w)] || [];
+        const cards = items.map(it => `<div class="c-card" style="background:${s.bg};color:${s.tc}"><div class="c-card-title">${it.title}</div><div class="c-card-meta">${s.pubDay} — ${it.meta}</div></div>`).join('');
+        return `<div class="cal-cell" data-week="${w}">${cards}</div>`;
+      }).join('');
+      return `<div class="cal-row"><div class="row-label"><div class="row-bar" style="background:${s.dot}"></div><div class="row-lname">${s.name}</div></div>${cells}</div>`;
     }).join('');
-    return `<div class="cal-row"><div class="row-label"><div class="row-bar" style="background:${s.dot}"></div><div class="row-lname">${s.name}</div><div class="row-lsub">${s.pubDay} ${s.pubTime} · ${s.teamHours}</div></div>${cells}</div>`;
-  }).join('');
-  
+  } else {
+    document.getElementById('calWrap').style.display='none';
+    document.getElementById('strategyWrap').style.display='block';
+    document.getElementById('strategyWrap').innerHTML = `
+      <div style="max-width:800px; background:#fff; padding:32px; border-radius:16px; border:1px solid var(--bd);">
+        <h2 style="font-family:'Syne'; color:var(--acc); margin-bottom:12px;">Technical Governance Declaration</h2>
+        <p style="font-size:14px; line-height:1.7; color:var(--txm); margin-bottom:24px;">
+          This interactive deployment system was developed <strong>from scratch by Cookies Group</strong> (Lead Dev: Beyaricko Degu) to manage the "Factory & Engine" resource model. 
+        </p>
+        <div style="padding:20px; background:var(--bg); border-radius:12px;">
+          <h4 style="font-family:'Syne'; margin-bottom:8px;">Model: Factory & Engine</h4>
+          <p style="font-size:12.5px; color:var(--txm);"> kreative Production is separated from technical distribution to deliver high-quality content within a strict 3.0h/week team management cap.</p>
+        </div>
+      </div>`;
+  }
   const mData = S.months.find(x=>x.id===S.activeMonth);
   document.getElementById('mPieces').innerText = mData.pieces;
+  document.getElementById('mBudget').innerText = '€' + mData.budMin;
 }
 
+function setView(v){ S.activeView=v; render(); }
 function updateMonthName(v){ S.months.find(x=>x.id===S.activeMonth).name=v; render(); }
-function saveS(){ localStorage.setItem('cookies_complete_v1', JSON.stringify(S)); }
-function loadS(){ const d = localStorage.getItem('cookies_complete_v1'); if(d) S=JSON.parse(d); else seed(); }
+function saveS(){ localStorage.setItem('cookies_final_v1', JSON.stringify(S)); }
+function loadS(){ const d=localStorage.getItem('cookies_final_v1'); if(d) S=JSON.parse(d); else seed(); }
 
 loadS();
 render();
