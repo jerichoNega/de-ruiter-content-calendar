@@ -1,1371 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Planr — Content Calendar</title>
-<title>Planr — Cookies Group x De Ruiter</title>
+<title>Planr — Cookies Group Dedicated System</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
-@@ -15,1163 +15,299 @@
---r: 10px; --rl: 14px;
---shadow: 0 2px 8px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
---shadow-lg: 0 20px 60px rgba(0,0,0,.14), 0 4px 16px rgba(0,0,0,.08);
-  --bottom-nav-h: 60px;
-  --bottom-nav-h: 65px;
+:root {
+  --sb: #0C0C12; --sb2: #13131C; --sb3: #1C1C28; --sb4: #252535;
+  --sbt: #D0D0E0; --sbm: #60607A; --acc: #FF4E00; --accl: #fff4f0;
+  --bg: #F8F6F2; --card: #FFFFFF; --bd: #E8E4DE; --bd2: #D4CFC8;
+  --tx: #1A1814; --txm: #7A7670; --txl: #B8B4AC;
+  --r: 10px; --rl: 14px;
+  --shadow: 0 2px 8px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.14), 0 4px 16px rgba(0,0,0,.08);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 14px; }
 body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--tx); display: flex; height: 100vh; overflow: hidden; line-height: 1.5; }
- 
 
 /* ─── SIDEBAR ─── */
-.sidebar { width: 252px; flex-shrink: 0; background: var(--sb); display: flex; flex-direction: column; height: 100vh; overflow: hidden; transition: transform .28s cubic-bezier(.4,0,.2,1); z-index: 40; }
-.sb-logo { padding: 22px 18px 18px; border-bottom: 1px solid var(--sb3); display: flex; align-items: center; justify-content: space-between; }
 .sidebar { width: 252px; flex-shrink: 0; background: var(--sb); display: flex; flex-direction: column; height: 100vh; overflow: hidden; transition: transform .3s ease; z-index: 100; }
 .sb-logo { padding: 22px 18px 18px; border-bottom: 1px solid var(--sb3); }
 .logo { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -.03em; }
 .logo em { color: var(--acc); font-style: normal; }
 .logo-sub { font-size: 10px; color: var(--sbm); letter-spacing: .08em; text-transform: uppercase; margin-top: 1px; }
-.sb-close-btn { display: none; background: none; border: none; color: var(--sbm); cursor: pointer; font-size: 18px; padding: 4px; }
 
-/* Dedicated attribution badge */
-.cookies-badge { margin: 12px; padding: 10px; border-radius: 8px; background: #1a1a24; border: 1px solid var(--sb4); }
-.cb-lbl { font-size: 9px; text-transform: uppercase; color: var(--acc); font-weight: 700; margin-bottom: 2px; }
-.cb-txt { font-size: 11px; color: var(--sbt); line-height: 1.3; }
+/* Cookies Group Branding */
+.cookies-badge { margin: 12px; padding: 12px; border-radius: 10px; background: #1a1a24; border: 1px solid var(--sb4); }
+.cb-lbl { font-size: 9px; text-transform: uppercase; color: var(--acc); font-weight: 800; margin-bottom: 4px; }
+.cb-txt { font-size: 11px; color: #fff; line-height: 1.4; opacity: 0.9; }
 
 .sb-scroll { flex: 1; overflow-y: auto; padding-bottom: 8px; }
-.sb-scroll::-webkit-scrollbar { width: 3px; }
-.sb-scroll::-webkit-scrollbar-thumb { background: var(--sb4); border-radius: 2px; }
 .sb-section { padding: 16px 12px 4px; }
-.sb-label { font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--sbm); padding: 0 6px; margin-bottom: 6px; }
-.company-field { background: var(--sb3); border: 1px solid var(--sb4); border-radius: 8px; padding: 8px 11px; width: 100%; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #fff; outline: none; transition: border-color .15s; }
-.company-field:focus { box-shadow: 0 0 0 2px rgba(255,78,0,.15); }
-.company-field::placeholder { color: var(--sbm); }
+.sb-label { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sbm); padding: 0 6px; margin-bottom: 6px; }
 .company-field { background: var(--sb3); border: 1px solid var(--sb4); border-radius: 8px; padding: 8px 11px; width: 100%; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #fff; outline: none; }
 .month-list { list-style: none; }
-.month-item { display: flex; align-items: center; gap: 9px; padding: 7px 7px; border-radius: 8px; cursor: pointer; transition: background .1s; margin-bottom: 1px; }
-.month-item:hover { background: var(--sb2); }
 .month-item { display: flex; align-items: center; gap: 9px; padding: 8px; border-radius: 8px; cursor: pointer; transition: background .1s; margin-bottom: 2px; }
+.month-item:hover { background: var(--sb2); }
 .month-item.active { background: var(--sb3); }
-.month-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sb4); flex-shrink: 0; transition: background .15s; }
 .month-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sb4); }
 .month-item.active .month-dot { background: var(--acc); }
-.month-name-text { font-size: 12.5px; color: var(--sbt); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
-.month-item.active .month-name-text { color: #fff; }
-.month-badge { font-size: 10px; color: var(--sbm); background: var(--sb2); border-radius: 4px; padding: 1px 5px; flex-shrink: 0; }
-.add-month-btn { display: flex; align-items: center; gap: 8px; padding: 7px 7px; border-radius: 8px; cursor: pointer; background: transparent; border: none; width: 100%; color: var(--sbm); font-size: 12px; font-family: 'DM Sans', sans-serif; transition: all .12s; margin-top: 2px; }
-.add-month-btn:hover { background: var(--sb2); color: var(--sbt); }
-.series-sb { padding: 0 12px 4px; display: flex; flex-direction: column; gap: 1px; }
-.series-sb-item { display: flex; align-items: center; gap: 9px; padding: 5px 7px; border-radius: 7px; cursor: default; }
-.sdot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
-.sname { font-size: 12px; color: var(--sbt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sb-bottom { border-top: 1px solid var(--sb3); padding: 10px 12px 14px; display: flex; flex-direction: column; gap: 2px; }
-.sb-btn { display: flex; align-items: center; gap: 9px; padding: 8px 7px; border-radius: 8px; background: transparent; border: none; width: 100%; font-family: 'DM Sans', sans-serif; font-size: 12.5px; color: var(--sbt); cursor: pointer; transition: background .12s; text-align: left; }
-.sb-btn:hover { background: var(--sb2); }
-.sb-btn.ai { color: var(--acc); }
-.sb-btn.ai:hover { background: #1A0A04; }
-.sb-btn svg { flex-shrink: 0; }
- 
-/* Drawer overlay */
-.drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 39; }
- 
 .month-name-text { font-size: 12.5px; color: var(--sbt); flex: 1; }
 
 /* ─── MAIN ─── */
 .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
-.main-header { padding: 20px 28px 0; flex-shrink: 0; background: var(--bg); }
-.top-bar { display: none; align-items: center; gap: 10px; padding: 12px 16px 0; background: var(--bg); flex-shrink: 0; }
-.hamburger { background: var(--sb); border: none; border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
-.top-bar-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: -.02em; flex: 1; }
-.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; position: relative; }
 .main-header { padding: 24px 28px 0; flex-shrink: 0; background: var(--bg); }
-.breadcrumb { font-size: 11px; color: var(--txl); margin-bottom: 6px; }
-.header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 16px; }
-.month-title-input { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -.03em; color: var(--tx); background: transparent; border: none; border-bottom: 2px solid transparent; outline: none; transition: border-color .15s; flex: 1; min-width: 0; }
-.month-title-input:focus { border-bottom-color: var(--acc); }
-.header-actions { display: flex; gap: 8px; flex-shrink: 0; }
- 
+.breadcrumb { font-size: 11px; color: var(--txl); margin-bottom: 6px; font-weight: 500; }
 .header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 16px; }
-.month-title-input { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -.03em; color: var(--tx); background: transparent; border: none; outline: none; flex: 1; }
+.month-title-input { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -.03em; color: var(--tx); background: transparent; border: none; outline: none; flex: 1; }
 
-/* Metrics */
-.metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-bottom: 16px; }
-.metric { background: var(--card); border: 1px solid var(--bd); border-radius: var(--r); padding: 12px 16px; position: relative; overflow: hidden; transition: border-color .15s; cursor: default; }
-.metric:hover { border-color: var(--bd2); }
-.metric::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--acc); border-radius: 0; opacity: 0; transition: opacity .2s; }
-.metric:hover::after { opacity: 1; }
-.metric-lbl { font-size: 10px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: var(--txm); margin-bottom: 4px; }
-.metric-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--tx); letter-spacing: -.025em; line-height: 1; margin-bottom: 3px; }
-.metric-sub { font-size: 11px; color: var(--txl); }
- 
-/* Toolbar */
-.toolbar { display: flex; align-items: center; justify-content: space-between; padding: 0 28px 12px; flex-shrink: 0; gap: 12px; }
-.hint { font-size: 11.5px; color: var(--txl); }
-.toolbar-actions { display: flex; gap: 8px; align-items: center; }
-.view-tab.active { background: var(--tx); color: var(--card); border-color: var(--tx); }
- 
-/* Calendar */
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+.metric { background: var(--card); border: 1px solid var(--bd); border-radius: var(--r); padding: 14px 18px; }
+.metric-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--txm); margin-bottom: 4px; letter-spacing: 0.05em; }
+.metric-val { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: var(--tx); line-height: 1; }
+
 .cal-wrap { flex: 1; overflow-y: auto; overflow-x: auto; padding: 0 28px 28px; }
-.cal-wrap::-webkit-scrollbar { width: 6px; height: 6px; }
-.cal-wrap::-webkit-scrollbar-track { background: transparent; }
-.cal-wrap::-webkit-scrollbar-thumb { background: var(--bd); border-radius: 3px; }
-.cal-grid { background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); overflow: hidden; min-width: 640px; box-shadow: var(--shadow); }
-.cal-head { display: grid; grid-template-columns: 150px repeat(4,1fr); background: #F3F0EA; border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 3; }
-.ch-cell { padding: 11px 10px; font-size: 10px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--txm); border-right: 1px solid var(--bd); }
-.ch-cell:last-child { border-right: none; }
-.ch-cell:first-child { color: var(--txl); }
-.cal-row { display: grid; grid-template-columns: 150px repeat(4,1fr); border-bottom: 1px solid var(--bd); min-height: 80px; }
-.cal-row:last-child { border-bottom: none; }
-.row-label { padding: 10px 12px; border-right: 1px solid var(--bd); background: #FAFAF8; display: flex; flex-direction: column; gap: 4px; justify-content: flex-start; }
-.row-bar { height: 3px; border-radius: 2px; width: 24px; }
-.row-lname { font-size: 11px; font-weight: 500; color: var(--tx); line-height: 1.3; }
-.row-lsub { font-size: 9.5px; color: var(--txl); line-height: 1.3; }
-.cal-cell { padding: 7px; border-right: 1px solid var(--bd); cursor: pointer; transition: background .1s; position: relative; min-height: 80px; }
-.cal-cell:last-child { border-right: none; }
-.cal-cell:hover { background: #FAFAF8; }
-.add-hint { position: absolute; bottom: 6px; right: 6px; width: 20px; height: 20px; border-radius: 50%; background: var(--bd); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--txm); opacity: 0; transition: opacity .15s; line-height: 1; }
-.cal-cell:hover .add-hint { opacity: 1; }
-.c-card { border-radius: 6px; padding: 6px 8px; margin-bottom: 4px; font-size: 11px; line-height: 1.4; cursor: pointer; transition: transform .12s, filter .12s; position: relative; }
-.c-card:last-child { margin-bottom: 0; }
-.c-card:hover { transform: translateY(-1px); filter: brightness(.96); }
-.c-card-title { font-weight: 500; margin-bottom: 2px; line-height: 1.3; }
-.c-card-meta { display: flex; gap: 6px; font-size: 9.5px; opacity: .65; flex-wrap: wrap; }
-.c-del { position: absolute; top: 3px; right: 4px; background: none; border: none; cursor: pointer; font-size: 10px; opacity: 0; transition: opacity .12s; color: inherit; line-height: 1; padding: 2px; border-radius: 3px; }
-.c-card:hover .c-del { opacity: .7; }
-.c-del:hover { opacity: 1 !important; background: rgba(0,0,0,.1); }
-@keyframes cardIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
-.c-card { animation: cardIn .15s ease; }
- 
-/* ─── BUTTONS ─── */
-.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px; border: 1px solid var(--bd); background: var(--card); font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--tx); cursor: pointer; transition: all .15s; }
-.btn:hover { border-color: var(--bd2); background: #F3F0EA; }
-.btn-acc { background: var(--acc); border-color: var(--acc); color: #fff; }
-.btn-acc:hover { background: #E04000; border-color: #E04000; }
-.btn-danger { color: #C53030; border-color: #FCCFCF; }
-.btn-danger:hover { background: #FFF5F5; }
-.btn-sm { padding: 5px 11px; font-size: 12px; }
- 
-/* ─── BOTTOM NAV (mobile) ─── */
-.bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; height: var(--bottom-nav-h); background: var(--sb); border-top: 1px solid var(--sb3); z-index: 38; flex-shrink: 0; }
-.bottom-nav-inner { display: flex; height: 100%; }
-.bn-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; background: none; border: none; cursor: pointer; color: var(--sbm); font-family: 'DM Sans', sans-serif; font-size: 10px; transition: color .15s; padding: 0; }
-.bn-item.active { color: var(--acc); }
-.bn-item svg { flex-shrink: 0; }
- 
-/* ─── MODALS ─── */
-.overlay { position: fixed; inset: 0; background: rgba(8,8,18,.55); backdrop-filter: blur(3px); display: flex; align-items: center; justify-content: center; z-index: 60; opacity: 0; transition: opacity .2s; pointer-events: none; }
-.overlay.open { opacity: 1; pointer-events: all; }
-.modal { background: var(--card); border-radius: var(--rl); width: 460px; max-width: calc(100vw - 32px); max-height: 88vh; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-lg); transform: scale(.96) translateY(10px); transition: transform .22s cubic-bezier(.34,1.56,.64,1); }
-.overlay.open .modal { transform: scale(1) translateY(0); }
-.modal-lg { width: 520px; }
-.m-head { padding: 20px 22px 16px; border-bottom: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-.m-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: -.02em; }
-.m-close { width: 28px; height: 28px; border-radius: 7px; border: 1px solid var(--bd); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--txm); transition: all .12s; }
-.m-close:hover { background: var(--bg); color: var(--tx); }
-.m-body { padding: 20px 22px; overflow-y: auto; flex: 1; }
-.m-body::-webkit-scrollbar { width: 4px; }
-.m-body::-webkit-scrollbar-thumb { background: var(--bd); border-radius: 2px; }
-.m-foot { padding: 14px 22px; border-top: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-.fg { margin-bottom: 14px; }
-.fg:last-child { margin-bottom: 0; }
-.flabel { display: block; font-size: 11px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--txm); margin-bottom: 5px; }
-.finput, .fselect, .ftextarea { width: 100%; padding: 9px 12px; border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); color: var(--tx); font-family: 'DM Sans', sans-serif; font-size: 13.5px; outline: none; transition: border-color .15s, box-shadow .15s; }
-.finput:focus, .fselect:focus, .ftextarea:focus { border-color: var(--acc); box-shadow: 0 0 0 3px rgba(255,78,0,.09); }
-.ftextarea { resize: vertical; min-height: 68px; }
-.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.frow .fg { margin-bottom: 0; }
- 
-/* Settings series */
-.ss-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); margin-bottom: 6px; }
-.ss-color { width: 26px; height: 26px; border-radius: 5px; border: 1px solid var(--bd); cursor: pointer; padding: 0; flex-shrink: 0; }
-.ss-name { flex: 1; border: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--tx); outline: none; }
-.ss-del { background: none; border: none; cursor: pointer; color: var(--txl); font-size: 15px; padding: 3px 5px; border-radius: 4px; transition: all .12s; }
-.ss-del:hover { background: #FFF5F5; color: #C53030; }
-.settings-sec-title { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--txm); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--bd); }
-.settings-sec { margin-bottom: 22px; }
- 
-/* ─── AI PANEL ─── */
-.ai-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 370px; background: var(--card); border-left: 1px solid var(--bd); z-index: 50; transform: translateX(100%); transition: transform .28s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; box-shadow: -6px 0 28px rgba(0,0,0,.08); }
-.ai-panel.open { transform: translateX(0); }
-.ai-head { padding: 18px 18px 14px; border-bottom: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-.ai-head-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -.02em; display: flex; align-items: center; gap: 9px; }
-.ai-spark { display: inline-flex; width: 24px; height: 24px; background: var(--acc); border-radius: 6px; align-items: center; justify-content: center; font-size: 13px; color: #fff; }
-.ai-controls { padding: 14px 18px; border-bottom: 1px solid var(--bd); display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
-.ai-body { flex: 1; overflow-y: auto; padding: 14px 18px; }
-.ai-body::-webkit-scrollbar { width: 4px; }
-.ai-body::-webkit-scrollbar-thumb { background: var(--bd); border-radius: 2px; }
-.ai-empty { font-size: 12.5px; color: var(--txm); line-height: 1.65; padding: 4px 0; }
-.ai-idea { background: var(--bg); border: 1px solid var(--bd); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; cursor: pointer; transition: all .15s; }
-.ai-idea:hover { border-color: var(--acc); background: var(--accl); }
-.ai-idea-series { font-size: 9.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--acc); margin-bottom: 3px; }
-.ai-idea-title { font-size: 13px; font-weight: 500; color: var(--tx); margin-bottom: 3px; line-height: 1.35; }
-.ai-idea-hook { font-size: 11.5px; color: var(--txm); line-height: 1.5; }
-.ai-spin { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 36px; gap: 12px; }
-.spinner { width: 30px; height: 30px; border: 2.5px solid var(--bd); border-top-color: var(--acc); border-radius: 50%; animation: spin .75s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.spin-txt { font-size: 12.5px; color: var(--txm); }
- 
-/* ─── TOAST ─── */
-.toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(10px); background: var(--tx); color: #fff; padding: 9px 18px; border-radius: 10px; font-size: 13px; opacity: 0; transition: all .22s; z-index: 200; pointer-events: none; white-space: nowrap; }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
- 
-/* ─── MOBILE RESPONSIVE ─── */
-.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-.metric { background: var(--card); border: 1px solid var(--bd); border-radius: var(--r); padding: 14px 18px; position: relative; overflow: hidden; }
-.metric-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--txm); margin-bottom: 4px; }
-.metric-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--tx); line-height: 1; }
-.metric-sub { font-size: 11px; color: var(--txl); margin-top: 4px; }
+.cal-grid { background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); overflow: hidden; min-width: 900px; box-shadow: var(--shadow); }
+.cal-head { display: grid; grid-template-columns: 200px repeat(4, 1fr); background: #F3F0EA; border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 10; }
+.ch-cell { padding: 12px 14px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--txm); border-right: 1px solid var(--bd); letter-spacing: 0.08em; }
+.cal-row { display: grid; grid-template-columns: 200px repeat(4, 1fr); border-bottom: 1px solid var(--bd); min-height: 120px; }
+.row-label { padding: 16px; border-right: 1px solid var(--bd); background: #FAFAF8; }
+.row-bar { height: 4px; width: 30px; border-radius: 2px; margin-bottom: 8px; }
+.row-lname { font-size: 12px; font-weight: 700; color: var(--tx); line-height: 1.3; }
+.row-lsub { font-size: 10px; color: var(--txl); margin-top: 4px; }
 
-/* Calendar Body */
-.cal-wrap { flex: 1; overflow-y: auto; padding: 0 28px 28px; }
-.cal-grid { background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); overflow: hidden; min-width: 800px; box-shadow: var(--shadow); }
-.cal-head { display: grid; grid-template-columns: 180px repeat(4, 1fr); background: #F3F0EA; border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 10; }
-.ch-cell { padding: 12px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--txm); border-right: 1px solid var(--bd); }
-.cal-row { display: grid; grid-template-columns: 180px repeat(4, 1fr); border-bottom: 1px solid var(--bd); min-height: 100px; }
-.row-label { padding: 14px; border-right: 1px solid var(--bd); background: #FAFAF8; }
-.row-lname { font-size: 12px; font-weight: 600; color: var(--tx); margin-top: 4px; }
-.cal-cell { padding: 8px; border-right: 1px solid var(--bd); cursor: pointer; position: relative; min-height: 100px; }
+.cal-cell { padding: 10px; border-right: 1px solid var(--bd); cursor: pointer; position: relative; }
 .cal-cell:hover { background: #fafaf8; }
-.c-card { border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; font-size: 11.5px; position: relative; transition: transform .1s; }
+.c-card { border-radius: 8px; padding: 10px; margin-bottom: 8px; font-size: 11.5px; border: 1px solid transparent; transition: transform 0.1s; }
 .c-card:hover { transform: translateY(-2px); }
-.c-card-title { font-weight: 600; margin-bottom: 4px; }
-.c-card-meta { font-size: 10px; opacity: 0.8; }
+.c-card-title { font-weight: 700; margin-bottom: 4px; line-height: 1.4; }
+.c-card-meta { font-size: 10px; opacity: 0.8; font-weight: 500; }
 
-/* ─── MOBILE ADAPTATION ─── */
+/* ─── MOBILE ─── */
 @media (max-width: 768px) {
-  body { flex-direction: column; }
- 
-  /* sidebar becomes a slide-in drawer */
-  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; transform: translateX(-100%); z-index: 41; }
-  .sidebar.open { transform: translateX(0); }
-  .drawer-overlay { display: block; opacity: 0; pointer-events: none; transition: opacity .28s; }
-  .drawer-overlay.open { opacity: 1; pointer-events: all; }
-  .sb-close-btn { display: block; }
- 
-  /* top bar visible on mobile */
-  .top-bar { display: flex; }
- 
-  /* main header smaller */
-  .main { padding-bottom: var(--bottom-nav-h); }
-  .main-header { padding: 12px 16px 0; }
-  .breadcrumb { display: none; }
-  .month-title-input { font-size: 17px; }
-  .header-actions .btn span { display: none; }
-  .header-actions .btn { padding: 7px 10px; }
- 
-  /* metrics 2x2 */
-  .metrics { grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-  .metric { padding: 10px 12px; }
-  .metric-val { font-size: 18px; }
- 
-  /* toolbar compact */
-  .toolbar { padding: 0 16px 10px; gap: 8px; flex-wrap: wrap; }
-  .hint { display: none; }
-  .toolbar-actions .btn span { display: none; }
- 
-  /* calendar scrolls horizontally */
-  body { flex-direction: column; overflow-y: auto; }
+  body { flex-direction: column; overflow-y: auto; height: auto; }
   .sidebar { position: fixed; left: 0; width: 280px; transform: translateX(-100%); }
   .sidebar.mobile-open { transform: translateX(0); }
-  
-  .main { height: auto; padding-bottom: 80px; }
+  .main { height: auto; padding-bottom: 100px; }
   .main-header { padding: 16px; }
-  .month-title-input { font-size: 18px; }
   .metrics { grid-template-columns: 1fr 1fr; gap: 8px; }
-  
-  /* REFLOW CALENDAR INTO VERTICAL CARDS */
-.cal-wrap { padding: 0 16px 16px; }
-  .cal-grid { min-width: 580px; }
-  .cal-head { grid-template-columns: 110px repeat(4,1fr); }
-  .cal-row { grid-template-columns: 110px repeat(4,1fr); }
-  .row-label { padding: 8px; }
-  .row-lname { font-size: 10px; }
-  .row-lsub { font-size: 9px; }
-  .c-card { font-size: 10px; padding: 5px 7px; }
-  .c-card-meta { font-size: 9px; }
-  .c-del { opacity: .5; }
- 
-  /* modals full-screen bottom sheet on mobile */
-  .overlay { align-items: flex-end; }
-  .modal { width: 100%; max-width: 100%; border-radius: var(--rl) var(--rl) 0 0; max-height: 90vh; transform: translateY(30px) scale(1); }
-  .overlay.open .modal { transform: translateY(0) scale(1); }
-  .modal-lg { width: 100%; }
- 
-  /* AI panel full width on mobile */
-  .ai-panel { width: 100%; border-left: none; border-top: 1px solid var(--bd); top: auto; bottom: var(--bottom-nav-h); }
- 
-  /* strategy wrap padding */
-  #strategyWrap > div { padding: 0 16px 80px !important; }
- 
-  /* bottom nav visible */
-  .bottom-nav { display: flex; }
- 
-  /* toast above bottom nav */
-  .toast { bottom: calc(var(--bottom-nav-h) + 12px); }
- 
-  /* hide desktop sidebar bottom buttons */
-  .sb-bottom { padding-bottom: 24px; }
-}
- 
-/* ─── EMPTY STATE ─── */
-.empty-cell { display: flex; align-items: center; justify-content: center; height: 58px; }
-.empty-cell-text { font-size: 11px; color: var(--txl); }
+  .cal-wrap { padding: 0 16px 16px; }
   .cal-grid { min-width: 0; border: none; background: transparent; box-shadow: none; }
   .cal-head { display: none; }
   .cal-row { display: block; background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); margin-bottom: 24px; box-shadow: var(--shadow); }
   .row-label { border-right: none; border-bottom: 1px solid var(--bd); }
-  .cal-cell { border-right: none; border-bottom: 1px dashed #eee; min-height: auto; padding: 12px 16px; }
-  .cal-cell::before { content: "Week " attr(data-week); display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--txl); margin-bottom: 6px; }
-  
-  .bottom-nav { display: flex; position: fixed; bottom: 0; width: 100%; height: var(--bottom-nav-h); background: var(--sb); border-top: 1px solid var(--sb3); z-index: 200; align-items: center; justify-content: space-around; }
-  .bn-item { color: var(--sbm); text-align: center; font-size: 10px; cursor: pointer; }
-  .bn-item.active { color: var(--acc); }
+  .cal-cell { border-right: none; border-bottom: 1px solid #f0f0f0; min-height: auto; padding: 14px 16px; }
+  .cal-cell::before { content: "Week " attr(data-week); display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--txl); margin-bottom: 8px; }
+  #mobileMenuBtn { display: flex !important; }
 }
 
-/* Modal Styling */
-.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 300; opacity: 0; pointer-events: none; transition: .2s; }
-.overlay.open { opacity: 1; pointer-events: all; }
-.modal { background: #fff; width: 440px; border-radius: var(--rl); padding: 24px; box-shadow: var(--shadow-lg); }
-
-/* Buttons */
-.btn { border-radius: 8px; padding: 8px 16px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--bd); background: #fff; transition: .1s; }
-.btn-acc { background: var(--acc); color: #fff; border-color: var(--acc); }
-
-.bottom-nav { display: none; }
+#mobileMenuBtn { display: none; position: fixed; bottom: 24px; right: 24px; z-index: 1000; width: 56px; height: 56px; border-radius: 50%; background: var(--acc); color: white; border: none; box-shadow: var(--shadow-lg); font-size: 24px; align-items: center; justify-content: center; }
 </style>
 </head>
 <body>
- 
-<!-- SIDEBAR -->
-<div class="sidebar">
+
+<button id="mobileMenuBtn" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')">☰</button>
 
 <div class="sidebar" id="sidebar">
-<div class="sb-logo">
-    <div>
-      <div class="logo">plan<em>r</em></div>
-      <div class="logo-sub">Content Calendar</div>
-    </div>
-    <button class="sb-close-btn" onclick="closeSidebar()">✕</button>
+  <div class="sb-logo">
     <div class="logo">plan<em>r</em></div>
-    <div class="logo-sub">Dedicated Content System</div>
-</div>
+    <div class="logo-sub">Content Management</div>
+  </div>
   
   <div class="cookies-badge">
     <div class="cb-lbl">Cookies Group</div>
-    <div class="cb-txt">Developed from scratch for De Ruiter's strategic implementation.</div>
+    <div class="cb-txt">Developed from scratch for De Ruiter's Bakkerij Implementation.</div>
   </div>
 
-<div class="sb-scroll">
-<div class="sb-section">
-<div class="sb-label">Company</div>
-      <input class="company-field" id="companyInput" placeholder="Company name..." value="De Ruiter's Bakkerij" oninput="S.company=this.value;saveS()">
-      <input class="company-field" id="companyInput" value="De Ruiter's Bakkerij" oninput="S.company=this.value;saveS()">
-</div>
-<div class="sb-section">
-<div class="sb-label">Months</div>
-<ul class="month-list" id="monthList"></ul>
-      <button class="add-month-btn" onclick="addMonth()">
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v11M1 6.5h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        Add month
-      </button>
+  <div class="sb-scroll">
+    <div class="sb-section">
+      <div class="sb-label">Client</div>
+      <input class="company-field" id="companyInput" oninput="S.company=this.value;saveS()">
     </div>
     <div class="sb-section">
-      <div class="sb-label">Active series</div>
-      <div class="series-sb" id="seriesSb"></div>
+      <div class="sb-label">Implementation Phases</div>
+      <ul class="month-list" id="monthList"></ul>
     </div>
-    <div class="sb-section">
-      <div class="sb-label" style="color:#5a5060">Future phases</div>
-      <div class="series-sb" id="futureSb"></div>
+  </div>
 </div>
-</div>
-  <div class="sb-bottom">
-    <button class="sb-btn ai" onclick="toggleAI()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5l1.4 3.6H12L9 7.8l1.1 3.7L7 9.2l-3.1 2.3L5 7.8 2 5.1h3.6L7 1.5z" fill="currentColor"/></svg>
-      AI suggestions
-    </button>
-    <button class="sb-btn" onclick="openSettings()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="2.2" stroke="currentColor" stroke-width="1.3"/><path d="M7 1.5V3M7 11v1.5M1.5 7H3M11 7h1.5M3 3l1 1M10 10l1 1M11 3l-1 1M4 10l-1 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      Settings
-    </button>
-    <button class="sb-btn" onclick="exportCSV()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Export CSV
-    </button>
-  
-  <div class="sb-section" style="padding-top:0">
-     <button class="btn btn-acc" style="width:100%" onclick="openAddModal()">+ Add Content</button>
-</div>
-</div>
- 
-<!-- DRAWER OVERLAY -->
-<div class="drawer-overlay" id="drawerOverlay" onclick="closeSidebar()"></div>
- 
-<!-- MAIN -->
 
 <div class="main">
-  <!-- Mobile top bar -->
-  <div class="top-bar">
-    <button class="hamburger" onclick="openSidebar()" aria-label="Open menu">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h12M2 12h12" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-    <div class="top-bar-title" id="topBarTitle">Content Calendar</div>
-    <button class="btn btn-acc btn-sm" onclick="openAddModal()" style="padding:6px 10px">
-      <svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v11M1 6.5h11" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-<div class="main-header">
-    <div class="breadcrumb" id="breadcrumb">Content Calendar</div>
-    <div class="breadcrumb">MCMS Master Assignment — Internal Dedicated System</div>
-<div class="header-row">
-      <input class="month-title-input" id="monthTitleInput" value="" oninput="updateMonthName(this.value)" placeholder="Month name...">
-      <div class="header-actions">
-        <button class="btn btn-acc" onclick="openAddModal()">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v11M1 6.5h11" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-          Add content
-        </button>
-      </div>
+  <div class="main-header">
+    <div class="breadcrumb">INTERNAL DEDICATED SYSTEM — PROJECT PPD MCMS</div>
+    <div class="header-row">
       <input class="month-title-input" id="monthTitleInput" oninput="updateMonthName(this.value)">
-      <button class="btn" id="mobileMenuToggle" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')">Menu</button>
-</div>
-    <div class="metrics" id="metrics">
-      <div class="metric"><div class="metric-lbl">Content pieces</div><div class="metric-val" id="mPieces">0</div><div class="metric-sub">this month</div></div>
-      <div class="metric"><div class="metric-lbl">Hours / week</div><div class="metric-val" id="mHours">12h</div><div class="metric-sub">estimated cap</div></div>
-      <div class="metric"><div class="metric-lbl">Est. spend</div><div class="metric-val" id="mBudget">€0</div><div class="metric-sub" id="mBudgetSub">budget range</div></div>
-      <div class="metric"><div class="metric-lbl">Capacity</div><div class="metric-val" id="mCap">100%</div><div class="metric-sub">utilised</div></div>
+    </div>
     <div class="metrics">
       <div class="metric"><div class="metric-lbl">Pieces</div><div class="metric-val" id="mPieces">0</div></div>
-      <div class="metric"><div class="metric-lbl">Hours/Wk</div><div class="metric-val" id="mHours">12h</div></div>
-      <div class="metric"><div class="metric-lbl">Est. Spend</div><div class="metric-val" id="mBudget">€0</div></div>
+      <div class="metric"><div class="metric-lbl">Team Cap</div><div class="metric-val" id="mHours">12h</div></div>
+      <div class="metric"><div class="metric-lbl">Weekly Allocation</div><div class="metric-val" id="mBudget">180m</div></div>
       <div class="metric"><div class="metric-lbl">Utilisation</div><div class="metric-val" id="mCap">100%</div></div>
-</div>
-</div>
- 
-  <div class="toolbar">
-    <div style="display:flex;gap:6px">
-      <button class="view-tab btn btn-sm active" data-view="calendar" onclick="setView('calendar')">Calendar</button>
-      <button class="view-tab btn btn-sm" data-view="strategy" onclick="setView('strategy')">Strategy & governance</button>
-    </div>
-    <div class="toolbar-actions">
-      <div class="hint" id="calHint" style="font-size:11.5px;color:var(--txl)">Click any cell to add · Click a card to edit</div>
-      <button class="btn btn-sm" onclick="openSettings()">Settings</button>
     </div>
   </div>
- 
-  <div class="cal-wrap" id="calWrap">
 
   <div class="cal-wrap">
-<div class="cal-grid">
-<div class="cal-head">
-        <div class="ch-cell">Series</div>
-        <div class="ch-cell">Strategy Series</div>
-<div class="ch-cell">Week 1</div>
-<div class="ch-cell">Week 2</div>
-<div class="ch-cell">Week 3</div>
-<div class="ch-cell">Week 4</div>
-</div>
-<div id="calBody"></div>
-</div>
-  </div>
- 
-  <div id="strategyWrap" style="display:none;overflow-y:auto;flex:1"></div>
-</div>
- 
-<!-- AI PANEL -->
-<div class="ai-panel" id="aiPanel">
-  <div class="ai-head">
-    <div class="ai-head-title"><span class="ai-spark">✦</span> AI suggestions</div>
-    <button class="m-close" onclick="toggleAI()">✕</button>
-  </div>
-  <div class="ai-controls">
-    <div class="fg" style="margin:0">
-      <label class="flabel">Focus on series</label>
-      <select class="fselect" id="aiSeriesFilter" style="font-size:13px;padding:7px 10px"></select>
+    <div class="cal-grid">
+      <div class="cal-head">
+        <div class="ch-cell">Strategy Prototype</div>
+        <div class="ch-cell">Week 1</div>
+        <div class="ch-cell">Week 2</div>
+        <div class="ch-cell">Week 3</div>
+        <div class="ch-cell">Week 4</div>
+      </div>
+      <div id="calBody"></div>
+    </div>
     
-    <div id="strategyNote" style="margin-top:40px; border-top: 1px solid var(--bd); padding-top:20px;">
-       <h3 style="font-family:'Syne'; font-size:16px; margin-bottom:8px;">System Governance</h3>
-       <p style="font-size:12px; color:var(--txm); line-height:1.6;">
-         <strong>Note to Coaches:</strong> This interactive calendar is a dedicated system built from scratch by <strong>Cookies Group</strong>. Unlike static templates, this system calculates resource utilisation (hours/budget) in real-time to ensure the "Factory & Engine" model remains sustainable across the 3-month implementation.
-       </p>
-</div>
-    <div class="fg" style="margin:0">
-      <label class="flabel">Tone / angle</label>
-      <input class="finput" id="aiTone" placeholder="nostalgic, Gen Z, cozy, seasonal..." value="nostalgic, Dutch cultural" style="font-size:13px;padding:7px 10px">
-    </div>
-    <button class="btn btn-acc" onclick="generateIdeas()" style="width:100%;justify-content:center;font-size:13px">Generate ideas →</button>
-  </div>
-  <div class="ai-body" id="aiBody">
-    <div class="ai-empty">Generate AI-powered content ideas tailored to your active month and series. Click any idea to instantly add it to the calendar.</div>
-</div>
-</div>
- 
-<!-- ITEM MODAL -->
-<div class="overlay" id="itemOverlay" onclick="overlayClick(event,'itemOverlay')">
-  <div class="modal">
-    <div class="m-head">
-      <div class="m-title" id="itemModalTitle">Add content item</div>
-      <button class="m-close" onclick="closeOverlay('itemOverlay')">✕</button>
-    </div>
-    <div class="m-body">
-      <div class="fg">
-        <label class="flabel">Title *</label>
-        <input class="finput" id="fTitle" placeholder="e.g. Blog: Gezelligheid — the feeling you grew up with">
-      </div>
-      <div class="frow">
-        <div class="fg">
-          <label class="flabel">Series</label>
-          <select class="fselect" id="fSeries"></select>
-        </div>
-        <div class="fg">
-          <label class="flabel">Week</label>
-          <select class="fselect" id="fWeek">
-            <option value="1">Week 1</option>
-            <option value="2">Week 2</option>
-            <option value="3">Week 3</option>
-            <option value="4">Week 4</option>
-          </select>
-        </div>
-      </div>
-      <div class="fg" style="margin-top:-6px;margin-bottom:12px">
-        <div id="fSeriesMeta" style="font-size:11.5px;color:var(--txm);padding:5px 0;border-radius:6px;line-height:1.5"></div>
-      </div>
-      <div class="frow">
-        <div class="fg">
-          <label class="flabel">Est. team hours</label>
-          <input class="finput" id="fHours" placeholder="1.5h">
-        </div>
-      </div>
-      <div class="fg" style="margin:0">
-        <label class="flabel">Notes / brief</label>
-        <textarea class="ftextarea" id="fNotes" placeholder="SEO keywords, references, production notes..."></textarea>
-      </div>
-    </div>
-    <div class="m-foot">
-      <button class="btn btn-danger btn-sm" id="delItemBtn" onclick="deleteItem()" style="display:none">Delete</button>
-      <div style="display:flex;gap:8px;margin-left:auto">
-        <button class="btn btn-sm" onclick="closeOverlay('itemOverlay')">Cancel</button>
-        <button class="btn btn-acc btn-sm" onclick="saveItem()">Save item</button>
-      </div>
+    <div style="margin-top:32px; padding:20px; background:#fff; border-radius:12px; border:1px solid var(--bd);">
+      <h4 style="font-family:'Syne'; margin-bottom:8px;">System Governance Note</h4>
+      <p style="font-size:12px; color:var(--txm); line-height:1.6;">
+        This interactive system was built from scratch by <strong>Cookies Group</strong> to manage the "Factory & Engine" model. It validates content volume against the 3.0h/week management cap defined in the strategic proposal. 
+      </p>
     </div>
   </div>
-
-<div class="bottom-nav">
-  <div class="bn-item active">Calendar</div>
-  <div class="bn-item" onclick="alert('Developed by Cookies Group')">Strategy</div>
-  <div class="bn-item" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')">Menu</div>
 </div>
- 
-<!-- SETTINGS MODAL -->
-<div class="overlay" id="settingsOverlay" onclick="overlayClick(event,'settingsOverlay')">
-  <div class="modal modal-lg">
-    <div class="m-head">
-      <div class="m-title">Settings</div>
-      <button class="m-close" onclick="closeOverlay('settingsOverlay')">✕</button>
-
-<div class="overlay" id="itemOverlay">
-  <div class="modal">
-    <h2 style="font-family:'Syne'; margin-bottom:16px;">Add content item</h2>
-    <div style="margin-bottom:12px">
-      <label style="font-size:10px; text-transform:uppercase; font-weight:700">Title</label>
-      <input class="company-field" id="fTitle" style="color:#000; background:#f0f0f0;" placeholder="e.g. Blog Post 1">
-</div>
-    <div class="m-body">
-      <div class="settings-sec">
-        <div class="settings-sec-title">Month metrics</div>
-        <div class="frow" style="margin-bottom:12px">
-          <div class="fg" style="margin:0">
-            <label class="flabel">Hours / week cap</label>
-            <input class="finput" id="sHours" type="number" min="0.5" step="0.5" value="3.0">
-          </div>
-          <div class="fg" style="margin:0">
-            <label class="flabel">Capacity %</label>
-            <input class="finput" id="sCap" type="number" min="0" max="100" value="100">
-          </div>
-        </div>
-        <div class="frow" style="margin-bottom:10px">
-          <div class="fg" style="margin:0">
-            <label class="flabel">Budget min (€)</label>
-            <input class="finput" id="sBudMin" type="number" value="144">
-          </div>
-          <div class="fg" style="margin:0">
-            <label class="flabel">Budget max (€)</label>
-            <input class="finput" id="sBudMax" type="number" value="288">
-          </div>
-        </div>
-        <div class="fg" style="margin:0">
-          <label class="flabel">Budget note</label>
-          <input class="finput" id="sBudNote" placeholder="e.g. Pinterest pins only" value="Pinterest pins only">
-        </div>
-      </div>
-      <div class="settings-sec">
-        <div class="settings-sec-title">Content series</div>
-        <div id="seriesSettingsList"></div>
-        <button class="btn btn-sm" onclick="addSeries()" style="margin-top:4px">+ Add series</button>
-      </div>
-      <div class="settings-sec" style="margin:0">
-        <div class="settings-sec-title">Anthropic API key (for AI features)</div>
-        <div class="fg" style="margin-bottom:6px">
-          <input class="finput" id="sApiKey" type="password" placeholder="sk-ant-api03-...">
-        </div>
-        <div style="font-size:11.5px;color:var(--txm);line-height:1.6">Your key is stored only in your browser. Never shared. Required for AI suggestions.</div>
-      </div>
-    <div style="display:flex; gap:12px; margin-bottom:20px;">
-      <select id="fSeries" class="btn" style="flex:1"></select>
-      <select id="fWeek" class="btn" style="flex:1">
-        <option value="1">Week 1</option><option value="2">Week 2</option><option value="3">Week 3</option><option value="4">Week 4</option>
-      </select>
-</div>
-    <div class="m-foot">
-      <div></div>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-sm" onclick="closeOverlay('settingsOverlay')">Cancel</button>
-        <button class="btn btn-acc btn-sm" onclick="saveSettings()">Save settings</button>
-      </div>
-    <div style="display:flex; justify-content:flex-end; gap:8px;">
-      <button class="btn" onclick="closeOverlay('itemOverlay')">Cancel</button>
-      <button class="btn btn-acc" onclick="saveItem()">Save Item</button>
-</div>
-</div>
-</div>
- 
-<!-- BOTTOM NAV (mobile) -->
-<nav class="bottom-nav">
-  <div class="bottom-nav-inner">
-    <button class="bn-item active" id="bnCalendar" onclick="setView('calendar');setBnActive('bnCalendar')">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M3 9h14M7 3v4M13 3v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      Calendar
-    </button>
-    <button class="bn-item" id="bnStrategy" onclick="setView('strategy');setBnActive('bnStrategy')">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 14l4-4 3 3 5-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="2" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.4"/></svg>
-      Strategy
-    </button>
-    <button class="bn-item" id="bnAI" onclick="toggleAI();setBnActive('bnAI')">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l2 5h5l-4 3 1.5 5L10 12l-4.5 3L7 10 3 7h5L10 2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-      AI Ideas
-    </button>
-    <button class="bn-item" id="bnMenu" onclick="openSidebar()">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      Menu
-    </button>
-  </div>
-</nav>
- 
-<div class="toast" id="toast"></div>
- 
 
 <script>
-// ── 4 series — exact from PDF ──
 const DEFAULT_SERIES = [
-  {id:'blog',name:'Blog — Growing Up Dutch',bg:'#DBEAFE',tc:'#1E40AF',dot:'#3B82F6',
-   pubDay:'Tue',pubTime:'10:00 CET',platforms:'Web · Paid Pinterest · IG story · IG carousel',teamHours:'2h'},
-  {id:'youtube',name:'YouTube Interview Series',bg:'#FEF3C7',tc:'#78350F',dot:'#F59E0B',
-   pubDay:'Thu (fortnightly)',pubTime:'14:00 CET',platforms:'YouTube · Shorts',teamHours:'4h'},
-  {id:'tin',name:'#WhatIsInMyTin Tin Challenge',bg:'#D1FAE5',tc:'#064E3B',dot:'#10B981',
-   pubDay:'Mon',pubTime:'11:00 CET',platforms:'IG · FB · TikTok',teamHours:'0.5–1h'},
-  {id:'reels',name:'IG/TikTok Stress Relief Series',bg:'#EDE9FE',tc:'#4C1D95',dot:'#7C3AED',
-   pubDay:'Wed/Thu',pubTime:'18:00 CET',platforms:'IG · TikTok',teamHours:'1.5h'},
-  {id:'blog',name:'Blog + Pinterest',bg:'#DBEAFE',tc:'#1E40AF',dot:'#3B82F6',pubDay:'Tue',pubTime:'10:00'},
-  {id:'youtube',name:'YouTube Series',bg:'#FEF3C7',tc:'#78350F',dot:'#F59E0B',pubDay:'Thu',pubTime:'14:00'},
-  {id:'tin',name:'Tin Challenge',bg:'#D1FAE5',tc:'#064E3B',dot:'#10B981',pubDay:'Mon',pubTime:'11:00'},
-  {id:'reels',name:'IG/TikTok Reels',bg:'#EDE9FE',tc:'#4C1D95',dot:'#7C3AED',pubDay:'Wed',pubTime:'18:00'},
+  {id:'blog',name:'Blog (+ Pinterest paid + IG Story + IG carousel)',bg:'#DBEAFE',tc:'#1E40AF',dot:'#3B82F6',pubDay:'Tue',pubTime:'10:00', teamHours:'2h'},
+  {id:'youtube',name:'YouTube Interview Series',bg:'#FEF3C7',tc:'#78350F',dot:'#F59E0B',pubDay:'Thu',pubTime:'14:00', teamHours:'4h'},
+  {id:'tin',name:'Tin Challenge #whatisinmytin',bg:'#D1FAE5',tc:'#064E3B',dot:'#10B981',pubDay:'Mon',pubTime:'11:00', teamHours:'0.5h'},
+  {id:'reels',name:'IG/TikTok Series Relief Series',bg:'#EDE9FE',tc:'#4C1D95',dot:'#7C3AED',pubDay:'Wed/Thu',pubTime:'18:00', teamHours:'1.5h'},
 ];
- 
-const FUTURE_PHASES = [];
- 
-// ── Months — exact from PDF ──
 
 const DEFAULT_MONTHS = [
-  {id:'m1',name:'Month 1 — Production & launch',weekHours:12,monthHours:48,pieces:13,cap:100,budMin:1800,budMax:2200,budNote:'Pinterest pins + freelance video'},
-  {id:'m2',name:'Month 2 — Engagement peak & tin challenge close',weekHours:11,monthHours:44,pieces:14,cap:92,budMin:600,budMax:900,budNote:'Paid Meta boost (tin wks 5–6)'},
-  {id:'m3',name:'Month 3 — Sustain, optimise & review',weekHours:12,monthHours:48,pieces:14,cap:100,budMin:300,budMax:500,budNote:'Pinterest pins only'},
-  {id:'m1',name:'Month 1 — Launch',weekHours:12,budMin:1800,pieces:10},
-  {id:'m2',name:'Month 2 — Growth',weekHours:11,budMin:600,pieces:13},
-  {id:'m3',name:'Month 3 — Review',weekHours:12,budMin:300,pieces:10},
+  {id:'m1',name:'Month 1 — Production & Launch',pieces:10},
+  {id:'m2',name:'Month 2 — Engagement Peak',pieces:13},
 ];
- 
-// ── Strategy data ──
-const STRATEGY = {
-  model:'Factory & Engine',
-  factory:'One Production Day per month batch-films all YouTube episodes and Reels. A freelance videographer handles filming and editing for YouTube — only metadata/SEO time charged to team.',
-  engine:'Weekly staff time split across SEO, metadata, scheduling, community management. All posts pre-scheduled in a single batch session via Meta Business Suite, TikTok, YouTube Studio, and WordPress.',
-  allocation:[
-    {proto:'Blog (Prototype 1)',task:'SEO formatting & Pinterest distribution',mins:60},
-    {proto:'YouTube Hub (Prototype 2)',task:'Metadata, chapters & video SEO',mins:45},
-    {proto:'#WhatIsInMyTin (Prototype 3)',task:'Community curation & reposting',mins:35},
-    {proto:'Stress Reels (Prototype 4)',task:'Snippet scheduling & captioning',mins:40},
-  ],
-  schedule:[
-    {day:'Mon',time:'11:00',platform:'Earned (Social)',content:'#WhatIsInMyTin UGC prompt / update',obj:'Community connection & social proof at start of week'},
-    {day:'Tue',time:'10:00',platform:'Owned (Website)',content:'"Growing Up Dutch" Blog post',obj:'SEO authority & lead capture — 37% more traffic vs. late-day'},
-    {day:'Tue',time:'11:00–13:00',platform:'Shared (IG)',content:'IG story + carousel (bundled with blog)',obj:'Midday scroll window — extend reach to existing followers'},
-    {day:'Thu',time:'14:00',platform:'Shared (YouTube)',content:'"Taste of Childhood" interview episode',obj:'Mid-afternoon break — Thursday gives Friday leisure time for algorithmic spread'},
-    {day:'Wed/Thu',time:'18:00',platform:'Shared (IG · TikTok)',content:'Stress Relief Reel',obj:'Post-work decompression — "3PM Pattern Interrupt" (18:00–23:00 peak)'},
-  ],
-  governance:[
-    {trigger:'YouTube retention < 40%',action:'Re-edit hook using batch-files from Production Day to hit 50% AVD goal'},
-    {trigger:'UGC participation low',action:'Pivot Monday block to "Fan Story of the Week" incentive via the blog hub'},
-    {trigger:'Referral traffic low',action:'Shift Pinterest budget (€144–€288) toward "nostalgic recipes" high-intent keywords'},
-  ]
-};
- 
 
 let S = {
-company: "De Ruiter's Bakkerij",
-activeMonth: 'm1',
-  activeView: 'calendar', // 'calendar' | 'strategy'
-months: JSON.parse(JSON.stringify(DEFAULT_MONTHS)),
-series: JSON.parse(JSON.stringify(DEFAULT_SERIES)),
-  items: {},
-  apiKey: '',
+  company: "De Ruiter's Bakkerij",
+  activeMonth: 'm1',
+  months: JSON.parse(JSON.stringify(DEFAULT_MONTHS)),
+  series: JSON.parse(JSON.stringify(DEFAULT_SERIES)),
   items: {}
 };
- 
-let editCtx = null;
- 
-
-function saveS(){ localStorage.setItem('cookies_state', JSON.stringify(S)); }
-function loadS(){
-  const d = localStorage.getItem('cookies_state');
-  if(d) S = JSON.parse(d);
-  else seed();
-}
 
 function ck(m,s,w){ return `${m}|${s}|${w}`; }
- 
-// ── Seed data — exact from PDF ──
 
 function seed(){
-  const a=(m,s,w,t,h,n)=>{const k=ck(m,s,w);if(!S.items[k])S.items[k]=[];S.items[k].push({title:t,hours:h,notes:n||''});};
- 
-  // ── Month 1 — Production & launch ──
-  // Blog (weekly, Tue 10:00)
-  a('m1','blog',1,'Blog 1: Why Dutch nostalgia hits different','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  a('m1','blog',2,'Blog 2: Gezelligheid — the feeling you grew up with','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  a('m1','blog',3,'Blog 3: The taste you cannot recreate','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  a('m1','blog',4,'Blog 4: Why no one leaves after one coffee','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  // YouTube (once/month — week 1, Thu 14:00)
-  a('m1','youtube',1,'YT ep.1 — Grandparent + grandchild: speculaas traditions','4h','Thu 14:00 · YouTube · Shorts · Bridge CTA → blog');
-  // Tin Challenge (launch week 4, Mon 11:00)
-  a('m1','tin',4,'Tin challenge — launch: #whatsinmytin seed post + rules','1h','Mon 11:00 · IG · FB · TikTok · Kick off 6-week UGC campaign');
-  // Reels (weekly, Wed/Thu 18:00)
-  a('m1','reels',1,'Reel ep.1 — Stress: exam deadline','1.5h','Wed/Thu 18:00 · IG · TikTok · Resolved by speculaas memory');
-  a('m1','reels',2,'Reel ep.2 — Stress: missing the bus','1.5h','Wed/Thu 18:00 · IG · TikTok');
-  a('m1','reels',3,'Reel ep.3 — Stress: bad presentation','1.5h','Wed/Thu 18:00 · IG · TikTok');
-  a('m1','reels',4,'Reel ep.4 — Stress: moving to new city','1.5h','Wed/Thu 18:00 · IG · TikTok');
- 
-  // ── Month 2 — Engagement peak & tin challenge close ──
-  // Blog
-  a('m2','blog',1,'Blog 5: The habits you accidentally kept','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  a('m2','blog',2,'Blog 6: Growing up Dutch — the routines','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  a('m2','blog',3,'Blog 7: What your grandma never explained','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  a('m2','blog',4,'Blog 8: The foods that hit different as a kid','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  // YouTube (once/month — week 1, Thu 14:00)
-  a('m2','youtube',1,'YT ep.2 — Neighbours across generations: doorstep habits','4h','Thu 14:00 · YouTube · Shorts · Bridge CTA → blog');
-  // Tin Challenge (wks 2–5 of campaign, Mon 11:00)
-  a('m2','tin',1,'Tin challenge — wk 2: reshare entries + story replies','0.5h','Mon 11:00 · IG Stories');
-  a('m2','tin',2,'Tin challenge — wk 3: paid Meta boost 20–30 NL','0.5h','Mon 11:00 · IG · FB (paid) · Amplify weeks 5–6');
-  a('m2','tin',3,'Tin challenge — wk 4: top entries story series','0.5h','Mon 11:00 · IG Stories');
-  a('m2','tin',4,'Tin challenge — wk 5: Pinterest — pin best entries','0.5h','Mon 11:00 · Pinterest');
-  // Reels
-  a('m2','reels',1,'Reel ep.5 — Stress: fighting with flatmate','1.5h','Wed/Thu 18:00 · IG · TikTok');
-  a('m2','reels',2,'Reel ep.6 — Stress: first week at new job','1.5h','Wed/Thu 18:00 · IG · TikTok');
-  a('m2','reels',3,'Reel ep.7 — Stress: losing your keys','1.5h','Wed/Thu 18:00 · IG · TikTok');
-  a('m2','reels',4,'Reel ep.8 — Stress: long commute','1.5h','Wed/Thu 18:00 · IG · TikTok');
- 
-  // ── Month 3 — Sustain, optimise & review ──
-  // Blog
-  a('m3','blog',1,'Blog 9: Rainy Sundays and speculaas','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  a('m3','blog',2,'Blog 10: Why Dutch traditions feel timeless','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  a('m3','blog',3,'Blog 11: Small rituals, big memories','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  a('m3','blog',4,'Blog 12: We have always been here','2h','Tue 10:00 · Web · Paid Pinterest pin · IG story · IG carousel');
-  // YouTube (once/month — week 1, Thu 14:00)
-  a('m3','youtube',1,'YT ep.3 — Friends 20 years apart: what gezelligheid means','4h','Thu 14:00 · YouTube · Shorts · Bridge CTA → blog');
-  // Tin Challenge (wk 6 close — week 1 of month 3)
-  a('m3','tin',1,'Tin challenge — wk 6 close: winner highlight + best-of post','1h','Mon 11:00 · IG · FB · TikTok · End of 6-week campaign');
-  // Reels
-  a('m3','reels',1,'Reel ep.9 — Stress: forgetting an appointment','1.5h','Wed/Thu 18:00 · IG · TikTok');
-  a('m3','reels',2,'Reel ep.10 — Stress: rainy cycling to work','1.5h','Wed/Thu 18:00 · IG · TikTok');
-  a('m3','reels',3,'Reel ep.11 — Stress: deadline crunch','1.5h','Wed/Thu 18:00 · IG · TikTok');
-  a('m3','reels',4,'Reel ep.12 — Stress: overdue grocery run','1.5h','Wed/Thu 18:00 · IG · TikTok · Week 4: full review GA4 + Meta Insights + Pinterest Analytics + YouTube Studio');
-}
- 
-// ── Persist ──
-function saveS(){
-  try{ localStorage.setItem('planr6_state', JSON.stringify(S)); }catch(e){}
-}
-function loadS(){
-  try{
-    const d = localStorage.getItem('planr6_state');
-    if(d){ const p = JSON.parse(d); Object.assign(S, p); }
-    else seed();
-  }catch(e){ seed(); }
-  // Monthly YouTube logic: Only Week 1 for each month
-  const a=(m,s,w,t,h)=>{const k=ck(m,s,w);if(!S.items[k])S.items[k]=[];S.items[k].push({title:t,hours:h});};
-  
-  ['m1','m2','m3'].forEach(m => {
-    a(m,'youtube',1,`YT ep. ${m.slice(1)}: Generational Traditions`,'4h');
-    [1,2,3,4].forEach(w => {
-      a(m,'blog',w,`Blog ${w}: Nostalgic Flavours`,'2h');
-      a(m,'reels',w,`Stress Relief ep.${w}`,'1.5h');
-    });
+  const a=(m,s,w,t,h,n)=>{const k=ck(m,s,w);if(!S.items[k])S.items[k]=[];S.items[k].push({title:t,hours:h,meta:n});};
+
+  // ── MONTH 1 ──
+  [1,2,3,4].forEach(w => {
+    a('m1','blog',w,`Blog ${w}: ${['Why Dutch nostalgia hits different','Gezelligheid: the feeling you grew up with','The taste you cannot recreate','Why no one leaves after one coffee'][w-1]}`,'2h','Web + Pinterest + IG');
+    a('m1','reels',w,`Reel ep. ${w}: ${['Stress: exam deadline','Stress: missing the bus','Stress: bad presentation','Stress: moving to new city'][w-1]}`,'1.5h','IG + TikTok');
   });
+  // Monthly YouTube logic
+  a('m1','youtube',1,'YT ep. 1: Father + Son: food traditions and memories','4h','YouTube + Shots');
+  // Tin Challenge Launch
+  a('m1','tin',4,'Tin Challenge - launch #whatisinmytin: seed post + rules','1h','IG, FB, TikTok');
+
+  // ── MONTH 2 ──
+  [1,2,3,4].forEach(w => {
+    a('m2','blog',w,`Blog ${w+4}: ${['The habits you accidentally kept','Growing Up Dutch: the routines','What your grandma never explained','The foods that hit different as a kid'][w-1]}`,'2h','Web + Pinterest + IG');
+    a('m2','reels',w,`Reel ep. ${w+4}: ${['Stress: fighting with flatmates','Stress: first week at new job','Stress: loosing your keys','Stress: long commute'][w-1]}`,'1.5h','IG + TikTok');
+    // Tin Challenge Sequence
+    const tinTitles = ['Reshare entries + story replies','Paid Meta boost 20-30 NL','Top entries story series','Pinterest pins best entries'];
+    const tinMetas = ['IG Stories','IG, FB (paid)','IG Stories','Pinterest'];
+    a('m2','tin',w,`Tin Challenge - wk ${w+1}: ${tinTitles[w-1]}`,'0.5h',tinMetas[w-1]);
+  });
+  // Monthly YouTube logic
+  a('m2','youtube',1,'YT ep. 2: Neighbours across generations: doorstep habits','4h','YouTube + Shots');
 }
- 
-// ── Render ──
 
 function render(){
-  renderSidebar();
-  if(S.activeView==='strategy') renderStrategy();
-  else renderCalendar();
-  recalc();
-}
- 
-function renderSidebar(){
   document.getElementById('companyInput').value = S.company;
-  document.getElementById('breadcrumb').textContent = S.company || 'Content Calendar';
-  const tb = document.getElementById('topBarTitle');
-  if(tb) tb.textContent = S.company || 'Planr';
- 
-const ml = document.getElementById('monthList');
-  ml.innerHTML = S.months.map(m=>{
-    const count = Object.keys(S.items).filter(k=>k.startsWith(m.id+'|')).reduce((s,k)=>s+(S.items[k]||[]).length,0);
-    return `<li class="month-item${m.id===S.activeMonth?' active':''}" onclick="setMonth('${m.id}');closeSidebar()">
-  ml.innerHTML = S.months.map(m => `
-    <li class="month-item ${m.id===S.activeMonth?'active':''}" onclick="S.activeMonth='${m.id}';render()">
-     <span class="month-dot"></span>
-     <span class="month-name-text">${m.name}</span>
-      <span class="month-badge">${count}</span>
-    </li>`;
-  }).join('');
- 
-  const sb = document.getElementById('seriesSb');
-  sb.innerHTML = S.series.map(s=>`
-    <div class="series-sb-item">
-      <div class="sdot" style="background:${s.dot}"></div>
-      <div class="sname">${s.name}</div>
-    </div>`).join('');
- 
-  // future phases
-  document.getElementById('futureSb').innerHTML = FUTURE_PHASES.map(f=>`
-    <div class="series-sb-item" style="opacity:.5;cursor:default" title="${f.reason}">
-      <div class="sdot" style="background:var(--sbm);border:1px dashed var(--sbm);background:transparent"></div>
-      <div class="sname" style="font-style:italic">${f.name}</div>
-    </div>`).join('');
- 
-  // active view highlight
-  document.querySelectorAll('.view-tab').forEach(t=>{
-    t.classList.toggle('active', t.dataset.view===S.activeView);
-  });
-}
- 
-function renderCalendar(){
-  document.getElementById('calWrap').style.display='';
-  document.getElementById('strategyWrap').style.display='none';
-    </li>`).join('');
+  document.getElementById('monthTitleInput').value = S.months.find(x=>x.id===S.activeMonth).name;
+  
+  const ml = document.getElementById('monthList');
+  ml.innerHTML = S.months.map(m => `<li class="month-item ${m.id===S.activeMonth?'active':''}" onclick="S.activeMonth='${m.id}';render()"><span class="month-dot"></span><span class="month-name-text">${m.name}</span></li>`).join('');
 
-const m = S.months.find(x=>x.id===S.activeMonth);
-  if(!m){ document.getElementById('calBody').innerHTML=''; return; }
-document.getElementById('monthTitleInput').value = m.name;
- 
-  document.getElementById('mPieces').innerText = m.pieces;
-  document.getElementById('mHours').innerText = m.weekHours + 'h';
-  document.getElementById('mBudget').innerText = '€' + m.budMin;
-
-const body = document.getElementById('calBody');
-  body.innerHTML = S.series.map(s=>{
-    const cells = [1,2,3,4].map(w=>{
-      const k = ck(S.activeMonth, s.id, w);
-      const items = S.items[k] || [];
-      const cards = items.map((it,idx)=>`
-        <div class="c-card" style="background:${s.bg};color:${s.tc}" onclick="event.stopPropagation();editItem('${S.activeMonth}','${s.id}',${w},${idx})">
-          <button class="c-del" onclick="event.stopPropagation();removeItem('${S.activeMonth}','${s.id}',${w},${idx})">✕</button>
-          <div class="c-card-title">${esc(it.title)}</div>
-          <div class="c-card-meta">
-            <span style="display:inline-flex;align-items:center;gap:3px;font-weight:500">${s.pubDay} ${s.pubTime||''}</span>
-            ${it.hours?`<span>· ${it.hours}</span>`:''}
-          </div>
+  const body = document.getElementById('calBody');
   body.innerHTML = S.series.map(s => {
     const cells = [1,2,3,4].map(w => {
       const items = S.items[ck(S.activeMonth, s.id, w)] || [];
-      const cards = items.map(it => `
-        <div class="c-card" style="background:${s.bg};color:${s.tc}">
-          <div class="c-card-title">${it.title}</div>
-          <div class="c-card-meta">${s.pubDay} ${s.pubTime} · ${it.hours}</div>
-       </div>`).join('');
-      return `<div class="cal-cell" onclick="quickAdd('${S.activeMonth}','${s.id}',${w})">
-        ${cards}
-        <div class="add-hint">+</div>
-      </div>`;
-      return `<div class="cal-cell" data-week="${w}" onclick="quickAdd('${s.id}',${w})">${cards}</div>`;
-}).join('');
-    return `<div class="cal-row">
-      <div class="row-label">
-        <div class="row-bar" style="background:${s.dot}"></div>
-        <div class="row-lname">${esc(s.name)}</div>
-        <div class="row-lsub">${s.pubDay} ${s.pubTime} · ${s.teamHours}/wk</div>
-      </div>
-      ${cells}
-    </div>`;
-    return `
-      <div class="cal-row">
-        <div class="row-label">
-          <div style="width:20px;height:3px;background:${s.dot};border-radius:2px;"></div>
-          <div class="row-lname">${s.name}</div>
-        </div>
-        ${cells}
-      </div>`;
-}).join('');
-}
- 
-function renderStrategy(){
-  document.getElementById('calWrap').style.display='none';
-  document.getElementById('strategyWrap').style.display='';
-  document.getElementById('strategyWrap').innerHTML = buildStrategyHTML();
-}
- 
-function buildStrategyHTML(){
-  const alloc = STRATEGY.allocation.map(a=>`
-    <tr>
-      <td style="padding:8px 12px;border-bottom:1px solid var(--bd);font-size:12.5px;font-weight:500">${esc(a.proto)}</td>
-      <td style="padding:8px 12px;border-bottom:1px solid var(--bd);font-size:12px;color:var(--txm)">${esc(a.task)}</td>
-      <td style="padding:8px 12px;border-bottom:1px solid var(--bd);font-size:13px;font-weight:600;font-family:'Syne',sans-serif;text-align:right">${a.mins} min</td>
-    </tr>`).join('');
-  const schedule = STRATEGY.schedule.map(r=>`
-    <tr>
-      <td style="padding:8px 12px;border-bottom:1px solid var(--bd);font-size:12.5px;font-weight:600">${r.day}</td>
-      <td style="padding:8px 12px;border-bottom:1px solid var(--bd);font-size:12px;color:var(--acc);font-weight:500">${r.time}</td>
-      <td style="padding:8px 12px;border-bottom:1px solid var(--bd);font-size:12px;color:var(--txm)">${r.platform}</td>
-      <td style="padding:8px 12px;border-bottom:1px solid var(--bd);font-size:12px">${esc(r.content)}</td>
-      <td style="padding:8px 12px;border-bottom:1px solid var(--bd);font-size:11.5px;color:var(--txm)">${esc(r.obj)}</td>
-    </tr>`).join('');
-  const gov = STRATEGY.governance.map(g=>`
-    <div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd)">
-      <div style="flex-shrink:0;margin-top:2px;width:8px;height:8px;background:var(--acc);border-radius:2px;margin-top:5px"></div>
-      <div>
-        <div style="font-size:12.5px;font-weight:500;margin-bottom:2px">If ${esc(g.trigger)}</div>
-        <div style="font-size:12px;color:var(--txm)">→ ${esc(g.action)}</div>
-      </div>
-    </div>`).join('');
- 
-  return `<div style="padding:0 28px 32px;max-width:900px">
-    <div style="margin-bottom:24px">
-      <div style="font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--txl);margin-bottom:6px">Strategic framework</div>
-      <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.025em;margin-bottom:8px">The "Factory &amp; Engine" Model</div>
-      <div style="font-size:13.5px;color:var(--txm);line-height:1.7;max-width:680px">Creative production is separated from technical distribution to deliver high-quality content across two prototypes within a strict 3.0h/week team cap.</div>
-    </div>
- 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px">
-      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:18px 20px">
-        <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#3B82F6;margin-bottom:8px">Content Factory</div>
-        <div style="font-size:13.5px;font-weight:500;margin-bottom:6px">Monthly Production Day</div>
-        <div style="font-size:12.5px;color:var(--txm);line-height:1.65">${STRATEGY.factory}</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:18px 20px">
-        <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--acc);margin-bottom:8px">Distribution Engine</div>
-        <div style="font-size:13.5px;font-weight:500;margin-bottom:6px">3h/Week Staff Time</div>
-        <div style="font-size:12.5px;color:var(--txm);line-height:1.65">${STRATEGY.engine}</div>
-      </div>
-    </div>
- 
-    <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;margin-bottom:28px">
-      <div style="padding:14px 16px 10px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between">
-        <div style="font-size:13px;font-weight:500">Weekly resource allocation</div>
-        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--acc)">180 min total</div>
-      </div>
-      <table style="width:100%;border-collapse:collapse">
-        <thead><tr style="background:#F3F0EA">
-          <th style="padding:8px 12px;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--txm);border-bottom:1px solid var(--bd)">Prototype</th>
-          <th style="padding:8px 12px;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--txm);border-bottom:1px solid var(--bd)">Activity</th>
-          <th style="padding:8px 12px;text-align:right;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--txm);border-bottom:1px solid var(--bd)">Time</th>
-        </tr></thead>
-        <tbody>${alloc}</tbody>
-      </table>
-    </div>
- 
-    <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;margin-bottom:28px">
-      <div style="padding:14px 16px 10px;border-bottom:1px solid var(--bd)">
-        <div style="font-size:13px;font-weight:500">Nostalgia Bridge — publishing schedule</div>
-        <div style="font-size:12px;color:var(--txm);margin-top:2px">Targeting Femma during peak mental-load hours with the "3PM Pattern Interrupt" logic</div>
-      </div>
-      <div style="overflow-x:auto">
-        <table style="width:100%;border-collapse:collapse;min-width:560px">
-          <thead><tr style="background:#F3F0EA">
-            <th style="padding:8px 12px;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--txm);border-bottom:1px solid var(--bd)">Day</th>
-            <th style="padding:8px 12px;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--txm);border-bottom:1px solid var(--bd)">Time (CET)</th>
-            <th style="padding:8px 12px;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--txm);border-bottom:1px solid var(--bd)">Platform</th>
-            <th style="padding:8px 12px;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--txm);border-bottom:1px solid var(--bd)">Content</th>
-            <th style="padding:8px 12px;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--txm);border-bottom:1px solid var(--bd)">Objective</th>
-          </tr></thead>
-          <tbody>${schedule}</tbody>
-        </table>
-      </div>
-    </div>
- 
-    <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;margin-bottom:28px">
-      <div style="padding:14px 16px 10px;border-bottom:1px solid var(--bd)">
-        <div style="font-size:13px;font-weight:500">Governance &amp; optimisation loop</div>
-        <div style="font-size:12px;color:var(--txm);margin-top:2px">Reviewed weekly within the 3h management window</div>
-      </div>
-      <div style="padding:4px 16px 8px">${gov}</div>
-    </div>
- 
-    <div style="background:#FFF8F0;border:1px solid #FFD5B8;border-radius:var(--rl);padding:16px 20px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#B45309;margin-bottom:8px">Future phases — excluded from current calendar</div>
-      ${FUTURE_PHASES.map(f=>`<div style="display:flex;gap:10px;margin-bottom:8px">
-        <div style="width:6px;height:6px;background:#F59E0B;border-radius:50%;flex-shrink:0;margin-top:5px"></div>
-        <div><span style="font-size:13px;font-weight:500">${esc(f.name)}</span> — <span style="font-size:12.5px;color:var(--txm)">${esc(f.reason)}</span></div>
-      </div>`).join('')}
-    </div>
-  </div>`;
-}
- 
-function recalc(){
-  const m = S.months.find(x=>x.id===S.activeMonth);
-  if(!m) return;
-  const keys = Object.keys(S.items).filter(k=>k.startsWith(S.activeMonth+'|'));
-  const total = keys.reduce((s,k)=>s+(S.items[k]||[]).length, 0);
-  document.getElementById('mPieces').textContent = total;
-  document.getElementById('mHours').textContent = m.weekHours+'h / wk';
-  document.getElementById('mBudget').textContent = '€'+m.budMin;
-  document.getElementById('mBudgetSub').textContent = '– €'+m.budMax+' · '+m.budNote;
-  document.getElementById('mCap').textContent = m.cap+'%';
-}
- 
-function setMonth(id){
-  S.activeMonth = id;
-  saveS();
-  render();
-}
- 
-function setView(v){
-  S.activeView = v;
-  render();
-}
- 
-function updateMonthName(v){
-  const m = S.months.find(x=>x.id===S.activeMonth);
-  if(m){ m.name=v; saveS(); renderSidebar(); }
-}
- 
-function addMonth(){
-  const id = 'm'+Date.now();
-  const n = S.months.length+1;
-  S.months.push({id,name:'Month '+n+' — New phase',weekHours:3.0,monthHours:12,pieces:0,cap:100,budMin:144,budMax:288,budNote:'Pinterest pins'});
-  S.activeMonth = id;
-  saveS();
-  render();
-}
- 
-function esc(s){ const d=document.createElement('div');d.textContent=s||'';return d.innerHTML; }
- 
-// ── Item CRUD ──
-function openAddModal(){
-  editCtx = null;
-  document.getElementById('itemModalTitle').textContent = 'Add content item';
-  document.getElementById('fTitle').value='';
-  document.getElementById('fHours').value='1.5h';
-  document.getElementById('fNotes').value='';
-  document.getElementById('fWeek').value='1';
-  populateSeriesSelect();
-  updateSeriesMeta();
-  document.getElementById('delItemBtn').style.display='none';
-
-function quickAdd(sid, w){
-  document.getElementById('fSeries').innerHTML = S.series.map(s=>`<option value="${s.id}" ${s.id===sid?'selected':''}>${s.name}</option>`).join('');
-  document.getElementById('fWeek').value = w;
-openOverlay('itemOverlay');
-  setTimeout(()=>document.getElementById('fTitle').focus(),220);
-}
- 
-function quickAdd(month, seriesId, week){
-  editCtx = null;
-  document.getElementById('itemModalTitle').textContent = 'Add content item';
-  document.getElementById('fTitle').value='';
-  document.getElementById('fHours').value='1.5h';
-  document.getElementById('fNotes').value='';
-  populateSeriesSelect(seriesId);
-  updateSeriesMeta();
-  document.getElementById('fWeek').value = String(week);
-  document.getElementById('delItemBtn').style.display='none';
-  openOverlay('itemOverlay');
-  setTimeout(()=>document.getElementById('fTitle').focus(),220);
-}
- 
-function editItem(month, seriesId, week, idx){
-  const k = ck(month, seriesId, week);
-  const it = (S.items[k]||[])[idx];
-  if(!it) return;
-  editCtx = {month, seriesId, week, idx};
-  document.getElementById('itemModalTitle').textContent = 'Edit content item';
-  document.getElementById('fTitle').value = it.title||'';
-  document.getElementById('fHours').value = it.hours||'1.5h';
-  document.getElementById('fNotes').value = it.notes||'';
-  populateSeriesSelect(seriesId);
-  updateSeriesMeta();
-  document.getElementById('fWeek').value = String(week);
-  document.getElementById('delItemBtn').style.display='block';
-
-function openAddModal(){
-  document.getElementById('fSeries').innerHTML = S.series.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
-openOverlay('itemOverlay');
-  setTimeout(()=>document.getElementById('fTitle').focus(),220);
-}
- 
-function populateSeriesSelect(selected){
-  const sel = document.getElementById('fSeries');
-  sel.innerHTML = S.series.map(s=>`<option value="${s.id}"${s.id===selected?' selected':''}>${s.name}</option>`).join('');
-  sel.onchange = updateSeriesMeta;
-}
- 
-function updateSeriesMeta(){
-  const sid = document.getElementById('fSeries').value;
-  const s = S.series.find(x=>x.id===sid);
-  const el = document.getElementById('fSeriesMeta');
-  if(s && el) el.textContent = s.pubDay+' '+s.pubTime+' · '+s.platforms;
-}
- 
-
-function saveItem(){
-  const title = document.getElementById('fTitle').value.trim();
-  if(!title){ document.getElementById('fTitle').focus(); return; }
-  const seriesId = document.getElementById('fSeries').value;
-  const week = parseInt(document.getElementById('fWeek').value);
-  const it = {title, hours:document.getElementById('fHours').value.trim(), notes:document.getElementById('fNotes').value.trim()};
-  if(editCtx){
-    const oldK = ck(editCtx.month, editCtx.seriesId, editCtx.week);
-    (S.items[oldK]||[]).splice(editCtx.idx,1);
-  }
-  const newK = ck(S.activeMonth, seriesId, week);
-  if(!S.items[newK]) S.items[newK]=[];
-  S.items[newK].push(it);
-  closeOverlay('itemOverlay');
-  saveS();
-  render();
-  showToast(editCtx?'Item updated':'Item added');
-  editCtx=null;
-}
- 
-function removeItem(month, seriesId, week, idx){
-  const k = ck(month, seriesId, week);
-  if(S.items[k]) S.items[k].splice(idx,1);
-  saveS();
-  render();
-  showToast('Item removed');
-}
- 
-function deleteItem(){
-  if(!editCtx) return;
-  removeItem(editCtx.month, editCtx.seriesId, editCtx.week, editCtx.idx);
-  closeOverlay('itemOverlay');
-  editCtx=null;
-}
- 
-// ── Settings ──
-function openSettings(){
-  const m = S.months.find(x=>x.id===S.activeMonth)||{weekHours:3,cap:100,budMin:144,budMax:288,budNote:''};
-  document.getElementById('sHours').value = m.weekHours;
-  document.getElementById('sCap').value = m.cap;
-  document.getElementById('sBudMin').value = m.budMin;
-  document.getElementById('sBudMax').value = m.budMax;
-  document.getElementById('sBudNote').value = m.budNote||'';
-  document.getElementById('sApiKey').value = S.apiKey||'';
-  renderSeriesSettings();
-  openOverlay('settingsOverlay');
-}
- 
-function renderSeriesSettings(){
-  const el = document.getElementById('seriesSettingsList');
-  el.innerHTML = S.series.map((s,i)=>`
-    <div class="ss-item">
-      <input type="color" class="ss-color" value="${s.dot}" oninput="updateSeriesColor(${i},this.value)">
-      <input class="ss-name" value="${esc(s.name)}" oninput="updateSeriesName(${i},this.value)" placeholder="Series name...">
-      <button class="ss-del" onclick="deleteSeries(${i})" title="Remove series">✕</button>
-    </div>`).join('');
-}
- 
-function updateSeriesColor(i,v){
-  S.series[i].dot=v;
-  S.series[i].bg=hexToLight(v);
-  S.series[i].tc=hexToDark(v);
-}
- 
-function updateSeriesName(i,v){ S.series[i].name=v; }
- 
-function hexToLight(hex){
-  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
-  return `rgba(${r},${g},${b},0.15)`;
-}
-function hexToDark(hex){
-  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
-  return `rgb(${Math.round(r*.35)},${Math.round(g*.35)},${Math.round(b*.35)})`;
-}
- 
-function addSeries(){
-  const colors = ['#3B82F6','#10B981','#F59E0B','#EC4899','#8B5CF6','#EF4444'];
-  const c = colors[S.series.length % colors.length];
-  S.series.push({id:'s'+Date.now(),name:'New series',bg:hexToLight(c),tc:hexToDark(c),dot:c});
-  renderSeriesSettings();
-}
- 
-function deleteSeries(i){
-  if(S.series.length<=1){ showToast('Keep at least one series'); return; }
-  if(!confirm('Delete "'+S.series[i].name+'"? Items in this series will be lost.')) return;
-  S.series.splice(i,1);
-  renderSeriesSettings();
-}
- 
-function saveSettings(){
-  const m = S.months.find(x=>x.id===S.activeMonth);
-  if(m){
-    m.weekHours = parseFloat(document.getElementById('sHours').value)||3;
-    m.cap = parseInt(document.getElementById('sCap').value)||100;
-    m.budMin = parseInt(document.getElementById('sBudMin').value)||0;
-    m.budMax = parseInt(document.getElementById('sBudMax').value)||0;
-    m.budNote = document.getElementById('sBudNote').value.trim();
-  }
-  S.apiKey = document.getElementById('sApiKey').value.trim();
-  closeOverlay('settingsOverlay');
-  saveS();
-  render();
-  showToast('Settings saved');
-}
- 
-// ── AI suggestions ──
-let aiOpen = false;
-function toggleAI(){
-  aiOpen = !aiOpen;
-  document.getElementById('aiPanel').classList.toggle('open', aiOpen);
-  if(aiOpen){
-    const sel = document.getElementById('aiSeriesFilter');
-    sel.innerHTML = '<option value="">All series</option>'+S.series.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
-  }
-}
- 
-async function generateIdeas(){
-  if(!S.apiKey){ showToast('Add your API key in Settings first'); openSettings(); return; }
-  const m = S.months.find(x=>x.id===S.activeMonth);
-  const phase = m?m.name:'this phase';
-  const company = S.company||'this company';
-  const tone = document.getElementById('aiTone').value||'nostalgic, Dutch cultural';
-  const filterSeries = document.getElementById('aiSeriesFilter').value;
-  const seriesList = filterSeries ? [S.series.find(s=>s.id===filterSeries)] : S.series;
-  const existing = Object.entries(S.items).filter(([k])=>k.startsWith(S.activeMonth+'|')).flatMap(([,v])=>v.map(i=>i.title)).slice(0,8).join('; ');
- 
-  document.getElementById('aiBody').innerHTML = `<div class="ai-spin"><div class="spinner"></div><div class="spin-txt">Generating ideas...</div></div>`;
- 
-  try{
-    const resp = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':S.apiKey,'anthropic-version':'2023-06-01'},
-      body: JSON.stringify({
-        model:'claude-opus-4-6',
-        max_tokens:1200,
-        system:`You are a content strategist for a Dutch bakery brand using nostalgia marketing. The strategy is the "Nostalgia Bridge" — targeting stressed 25–35 year olds (persona: Femma) during evening hours with comforting Dutch cultural content that resolves modern stress with speculaas/bakery memories. Return ONLY a valid JSON array, no markdown, no preamble. Each object: {"series":"exact series name","title":"Post title","hook":"One sentence value proposition","pubTime":"publish day and time"}`,
-        messages:[{role:'user',content:`Generate 8 fresh content ideas for ${company}, phase: ${phase}. Tone: ${tone}. Active series: ${seriesList.map(s=>s.name+' ('+s.pubDay+' '+s.pubTime+')').join('; ')}. Do not duplicate: ${existing||'none yet'}. Return JSON array only.`}]
-      })
-    });
-    const data = await resp.json();
-    let text = (data.content||[]).map(c=>c.text||'').join('');
-    text = text.replace(/```json|```/g,'').trim();
-    let ideas;
-    try{ ideas = JSON.parse(text); } catch(e){ throw new Error('Bad JSON'); }
- 
-    document.getElementById('aiBody').innerHTML = ideas.map((idea)=>{
-      const matchSeries = S.series.find(s=>idea.series&&s.name.toLowerCase().includes(idea.series.toLowerCase().split(' ')[0]))||S.series[0];
-      return `<div class="ai-idea" onclick="addAIIdea('${esc(idea.title)}','${matchSeries.id}')">
-        <div class="ai-idea-series">${esc(idea.series||matchSeries.name)}</div>
-        <div class="ai-idea-title">${esc(idea.title)}</div>
-        <div class="ai-idea-hook">${esc(idea.hook)}</div>
-        ${idea.pubTime?`<div style="font-size:10.5px;color:var(--acc);margin-top:4px;font-weight:500">${esc(idea.pubTime)}</div>`:''}
-      </div>`;
+      const cards = items.map(it => `<div class="c-card" style="background:${s.bg};color:${s.tc}"><div class="c-card-title">${it.title}</div><div class="c-card-meta">${s.pubDay} ${s.pubTime} — ${it.meta}</div></div>`).join('');
+      return `<div class="cal-cell" data-week="${w}">${cards}</div>`;
     }).join('');
-  }catch(e){
-    document.getElementById('aiBody').innerHTML = `<div class="ai-empty" style="color:#C53030">Could not generate ideas. Check your API key or connection.<br><br><small>${e.message}</small></div>`;
-  }
+    return `<div class="cal-row"><div class="row-label"><div class="row-bar" style="background:${s.dot}"></div><div class="row-lname">${s.name}</div><div class="row-lsub">${s.pubDay} ${s.pubTime} · ${s.teamHours}</div></div>${cells}</div>`;
+  }).join('');
+  
+  const mData = S.months.find(x=>x.id===S.activeMonth);
+  document.getElementById('mPieces').innerText = mData.pieces;
 }
- 
-function addAIIdea(title, seriesId){
-  const k = ck(S.activeMonth, seriesId, 1);
-  if(!S.items[k]) S.items[k]=[];
-  S.items[k].push({title, hours:'1.5h', notes:'AI generated idea — edit to refine'});
-  saveS();
-  render();
-  showToast('Added to Week 1 — click to edit');
-}
- 
-// ── Export ──
-function exportCSV(){
-  const rows = [['Month','Series','Publish day','Publish time','Week','Title','Team hours','Notes']];
-  S.months.forEach(m=>{
-    S.series.forEach(s=>{
-      [1,2,3,4].forEach(w=>{
-        const k=ck(m.id,s.id,w);
-        (S.items[k]||[]).forEach(it=>{
-          rows.push([m.name,s.name,s.pubDay||'',s.pubTime||'','Week '+w,it.title,it.hours,it.notes]);
-        });
-      });
-    });
-  });
-  const csv = rows.map(r=>r.map(c=>'"'+(String(c||'').replace(/"/g,'""'))+'"').join(',')).join('\n');
-  const a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download = 'content-calendar-de-ruiter.csv';
-  a.click();
-  showToast('CSV exported');
-  const title = document.getElementById('fTitle').value;
-  const sid = document.getElementById('fSeries').value;
-  const w = document.getElementById('fWeek').value;
-  const k = ck(S.activeMonth, sid, w);
-  if(!S.items[k]) S.items[k] = [];
-  S.items[k].push({title, hours:'1.5h'});
-  closeOverlay('itemOverlay'); saveS(); render();
-}
- 
-// ── Overlay helpers ──
 
-function openOverlay(id){ document.getElementById(id).classList.add('open'); }
-function closeOverlay(id){ document.getElementById(id).classList.remove('open'); }
-function overlayClick(e,id){ if(e.target.id===id) closeOverlay(id); }
- 
-// ── Toast ──
-let toastTimer;
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
-}
- 
-// ── Mobile sidebar ──
-function openSidebar(){
-  document.querySelector('.sidebar').classList.add('open');
-  document.getElementById('drawerOverlay').classList.add('open');
-}
-function closeSidebar(){
-  document.querySelector('.sidebar').classList.remove('open');
-  document.getElementById('drawerOverlay').classList.remove('open');
-}
-function setBnActive(id){
-  document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));
-  const el = document.getElementById(id);
-  if(el) el.classList.add('active');
-}
- 
-// ── Keyboard ──
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){
-    closeOverlay('itemOverlay');
-    closeOverlay('settingsOverlay');
-  }
-  if((e.metaKey||e.ctrlKey)&&e.key==='k') openAddModal();
-});
- 
-// ── Init ──
-function updateMonthName(v){ S.months.find(x=>x.id===S.activeMonth).name=v; saveS(); render(); }
+function updateMonthName(v){ S.months.find(x=>x.id===S.activeMonth).name=v; render(); }
+function saveS(){ localStorage.setItem('cookies_build_v2', JSON.stringify(S)); }
+function loadS(){ const d = localStorage.getItem('cookies_build_v2'); if(d) S=JSON.parse(d); else seed(); }
 
 loadS();
 render();
 </script>
 </body>
 </html>
- 
