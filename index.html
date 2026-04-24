@@ -21,65 +21,185 @@
 html { font-size: 14px; }
 body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--tx); display: flex; height: 100vh; overflow: hidden; line-height: 1.5; }
 
-/* ─── SIDEBAR ─── */
+/* ANIMATIONS */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+@keyframes scaleIn  { from { opacity:0; transform:scale(0.92);       } to { opacity:1; transform:scale(1);   } }
+@keyframes slideIn  { from { opacity:0; transform:translateX(-6px);  } to { opacity:1; transform:translateX(0); } }
+
+/* ── SIDEBAR ── */
 .sidebar { width: 252px; flex-shrink: 0; background: var(--sb); display: flex; flex-direction: column; height: 100vh; overflow: hidden; transition: transform .28s cubic-bezier(.4,0,.2,1); z-index: 40; }
 .sb-logo { padding: 22px 18px 18px; border-bottom: 1px solid var(--sb3); }
 .logo { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -.03em; }
 .logo em { color: var(--acc); font-style: normal; }
 .logo-sub { font-size: 10px; color: var(--sbm); letter-spacing: .08em; text-transform: uppercase; margin-top: 1px; }
 
-/* Cookies Group Attribution */
 .dev-badge { margin: 12px; padding: 12px; border-radius: 10px; background: #1a1a24; border: 1px solid var(--sb4); }
-.dev-lbl { font-size: 9px; text-transform: uppercase; color: var(--acc); font-weight: 800; margin-bottom: 4px; }
-.dev-name { font-size: 11px; color: #fff; line-height: 1.4; opacity: 0.9; }
-.dev-sub { font-size: 10px; color: var(--sbm); margin-top: 2px; }
+.dev-lbl  { font-size: 9px; text-transform: uppercase; color: var(--acc); font-weight: 800; margin-bottom: 4px; }
+.dev-name { font-size: 11px; color: #fff; line-height: 1.4; opacity: .9; }
+.dev-sub  { font-size: 10px; color: var(--sbm); margin-top: 2px; }
 
-.sb-scroll { flex: 1; overflow-y: auto; padding-bottom: 8px; }
+.sb-scroll  { flex: 1; overflow-y: auto; padding-bottom: 12px; }
 .sb-section { padding: 16px 12px 4px; }
-.sb-label { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sbm); padding: 0 6px; margin-bottom: 6px; }
+.sb-label   { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sbm); padding: 0 6px; margin-bottom: 6px; }
+
 .company-field { background: var(--sb3); border: 1px solid var(--sb4); border-radius: 8px; padding: 8px 11px; width: 100%; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #fff; outline: none; transition: border-color .15s; }
+.company-field:focus { border-color: var(--acc); }
+
 .month-list { list-style: none; }
 .month-item { display: flex; align-items: center; gap: 9px; padding: 8px; border-radius: 8px; cursor: pointer; transition: background .1s; margin-bottom: 2px; }
 .month-item:hover { background: var(--sb2); }
 .month-item.active { background: var(--sb3); }
-.month-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sb4); }
+.month-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--sb4); flex-shrink: 0; }
 .month-item.active .month-dot { background: var(--acc); }
 .month-name-text { font-size: 12.5px; color: var(--sbt); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-/* ─── MAIN ─── */
+/* Month progress strip */
+.month-prog-wrap { margin: 2px 18px 12px; }
+.month-prog-bar  { height: 3px; background: var(--sb4); border-radius: 2px; overflow: hidden; }
+.month-prog-fill { height: 100%; background: var(--acc); border-radius: 2px; transition: width .6s ease; }
+.month-prog-lbl  { display: flex; justify-content: space-between; font-size: 9px; color: var(--sbm); margin-top: 4px; }
+
+/* Series legend */
+.legend-item { display: flex; align-items: flex-start; gap: 9px; padding: 6px 6px; border-radius: 6px; transition: background .1s; }
+.legend-item:hover { background: var(--sb2); }
+.legend-dot  { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+.legend-info { flex: 1; min-width: 0; }
+.legend-name { font-size: 10px; color: var(--sbt); font-weight: 600; line-height: 1.35; }
+.legend-time { font-size: 9px; color: var(--sbm); margin-top: 1px; }
+
+/* ── MAIN ── */
 .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
 .main-header { padding: 24px 28px 0; flex-shrink: 0; background: var(--bg); }
-.breadcrumb { font-size: 11px; color: var(--txl); margin-bottom: 6px; font-weight: 500; }
-.header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 16px; }
-.month-title-input { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -.03em; color: var(--tx); background: transparent; border: none; outline: none; flex: 1; }
+.breadcrumb  { font-size: 11px; color: var(--txl); margin-bottom: 6px; font-weight: 500; letter-spacing: .04em; }
+.header-row  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 16px; }
+.month-title-input { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -.03em; color: var(--tx); background: transparent; border: none; outline: none; flex: 1; min-width: 0; transition: color .15s; }
+.month-title-input:focus { color: var(--acc); }
+.header-actions { display: flex; gap: 8px; flex-shrink: 0; }
 
 .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-.metric { background: var(--card); border: 1px solid var(--bd); border-radius: var(--r); padding: 14px 18px; }
-.metric-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--txm); margin-bottom: 4px; letter-spacing: 0.05em; }
+.metric { background: var(--card); border: 1px solid var(--bd); border-radius: var(--r); padding: 14px 18px; transition: box-shadow .15s, transform .15s; cursor: default; }
+.metric:hover { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+.metric-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--txm); margin-bottom: 4px; letter-spacing: .05em; }
 .metric-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--tx); line-height: 1; }
+.metric-sub { font-size: 9.5px; color: var(--txl); margin-top: 4px; }
 
-/* Toolbar */
-.toolbar { display: flex; align-items: center; justify-content: space-between; padding: 0 28px 12px; flex-shrink: 0; }
-.view-tabs { display: flex; gap: 8px; }
+/* ── TOOLBAR ── */
+.toolbar { display: flex; align-items: center; justify-content: space-between; padding: 0 28px 12px; flex-shrink: 0; gap: 12px; }
+.view-tabs  { display: flex; gap: 8px; flex-shrink: 0; }
+.filter-row { display: flex; gap: 6px; align-items: center; overflow-x: auto; padding-bottom: 2px; }
 
-/* Calendar Grid */
+/* Filter chips */
+.filter-chip { display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px; border-radius: 20px; border: 1.5px solid var(--bd); background: transparent; font-size: 11px; font-weight: 600; cursor: pointer; transition: all .15s; white-space: nowrap; color: var(--txm); font-family: 'DM Sans', sans-serif; }
+.filter-chip:hover { border-color: var(--bd2); color: var(--tx); }
+.filter-chip.on  { background: var(--tx); color: #fff; border-color: var(--tx); }
+.filter-chip .cd { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── CALENDAR ── */
 .cal-wrap { flex: 1; overflow-y: auto; overflow-x: auto; padding: 0 28px 28px; }
-.cal-grid { background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); overflow: hidden; min-width: 900px; box-shadow: var(--shadow); }
-.cal-head { display: grid; grid-template-columns: 200px repeat(4, 1fr); background: #F3F0EA; border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 10; }
-.ch-cell { padding: 12px 14px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--txm); border-right: 1px solid var(--bd); }
-.cal-row { display: grid; grid-template-columns: 200px repeat(4, 1fr); border-bottom: 1px solid var(--bd); min-height: 120px; }
+.cal-grid  { background: var(--card); border: 1px solid var(--bd); border-radius: var(--rl); overflow: hidden; min-width: 900px; box-shadow: var(--shadow); }
+.cal-head  { display: grid; grid-template-columns: 200px repeat(4, 1fr); background: #F3F0EA; border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 10; }
+.ch-cell   { padding: 12px 14px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--txm); border-right: 1px solid var(--bd); }
+.ch-cell:last-child { border-right: none; }
+.ch-sub    { font-size: 9px; color: var(--txl); font-weight: 500; margin-top: 2px; text-transform: none; letter-spacing: 0; }
+
+.cal-row   { display: grid; grid-template-columns: 200px repeat(4, 1fr); border-bottom: 1px solid var(--bd); min-height: 120px; }
+.cal-row.hidden { display: none; }
 .row-label { padding: 16px; border-right: 1px solid var(--bd); background: #FAFAF8; }
-.row-bar { height: 4px; width: 30px; border-radius: 2px; margin-bottom: 8px; }
+.row-bar   { height: 4px; width: 30px; border-radius: 2px; margin-bottom: 8px; }
 .row-lname { font-size: 12px; font-weight: 700; color: var(--tx); line-height: 1.3; }
-.row-lsub { font-size: 10px; color: var(--txl); margin-top: 4px; }
+.row-lsub  { font-size: 10px; color: var(--txl); margin-top: 4px; }
+.row-hours { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: var(--txm); margin-top: 6px; }
 
-.cal-cell { padding: 10px; border-right: 1px solid var(--bd); cursor: pointer; position: relative; min-height: 120px; }
+.cal-cell  { padding: 10px; border-right: 1px solid var(--bd); position: relative; min-height: 120px; transition: background .15s; }
+.cal-cell:last-child { border-right: none; }
 .cal-cell:hover { background: #fafaf8; }
-.c-card { border-radius: 8px; padding: 10px; margin-bottom: 8px; font-size: 11.5px; transition: transform 0.1s; border: 1px solid transparent; }
-.c-card-title { font-weight: 700; margin-bottom: 4px; line-height: 1.4; }
-.c-card-meta { font-size: 9.5px; opacity: 0.8; font-weight: 500; }
 
-/* ─── MOBILE RESPONSIVE ─── */
+/* Content cards */
+.c-card { border-radius: 8px; padding: 10px; margin-bottom: 8px; font-size: 11.5px; transition: transform .15s, box-shadow .15s; border: 1.5px solid transparent; cursor: pointer; animation: fadeUp .2s ease both; }
+.c-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+.c-card-title  { font-weight: 700; margin-bottom: 5px; line-height: 1.4; }
+.c-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+.c-card-meta   { font-size: 9.5px; opacity: .8; font-weight: 500; flex: 1; }
+.c-status-dot  { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── MODAL ── */
+.modal-overlay { position: fixed; inset: 0; background: rgba(10,8,6,.52); backdrop-filter: blur(4px); z-index: 500; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal { background: #fff; border-radius: 20px; width: 460px; max-width: calc(100vw - 32px); max-height: 88vh; overflow-y: auto; box-shadow: 0 40px 120px rgba(0,0,0,.25); transform: scale(.94) translateY(16px); transition: transform .25s cubic-bezier(.4,0,.2,1); }
+.modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+.modal-header  { padding: 18px 18px 14px; border-bottom: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.modal-series-tag { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: 4px 10px; border-radius: 20px; max-width: 75%; }
+.modal-close { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--bd); background: transparent; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; color: var(--txm); transition: all .15s; flex-shrink: 0; }
+.modal-close:hover { background: var(--bd); color: var(--tx); }
+
+.modal-body { padding: 20px; }
+.modal-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--tx); margin-bottom: 12px; line-height: 1.4; }
+.modal-badges { display: flex; gap: 7px; margin-bottom: 18px; flex-wrap: wrap; }
+.modal-badge  { display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 8px; background: var(--bg); border: 1px solid var(--bd); font-size: 11.5px; color: var(--txm); font-weight: 500; }
+
+.modal-sec-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--txl); margin-bottom: 8px; }
+.modal-section { margin-bottom: 18px; }
+
+.status-row { display: flex; gap: 8px; }
+.status-btn { flex: 1; padding: 9px 6px; border-radius: 8px; border: 1.5px solid var(--bd); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; cursor: pointer; transition: all .15s; color: var(--txm); display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.status-btn:hover { border-color: var(--bd2); background: var(--bg); }
+.status-btn.s-draft     { background: #F9FAFB; border-color: #9CA3AF; color: #374151; }
+.status-btn.s-scheduled { background: #DBEAFE; border-color: #93C5FD; color: #1D4ED8; }
+.status-btn.s-published { background: #D1FAE5; border-color: #6EE7B7; color: #065F46; }
+.status-icon { font-size: 15px; }
+
+.modal-notes { width: 100%; border: 1.5px solid var(--bd); border-radius: 10px; padding: 10px 12px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--tx); background: var(--bg); resize: vertical; min-height: 76px; outline: none; transition: border-color .15s; }
+.modal-notes:focus { border-color: var(--acc); }
+
+.modal-footer { padding: 10px 20px 18px; display: flex; justify-content: flex-end; gap: 8px; }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(72px); background: var(--tx); color: #fff; padding: 9px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; z-index: 9999; transition: transform .28s cubic-bezier(.4,0,.2,1); box-shadow: 0 8px 24px rgba(0,0,0,.22); white-space: nowrap; pointer-events: none; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--bd); background: var(--card); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--tx); cursor: pointer; transition: all .15s; }
+.btn:hover { background: var(--bg); box-shadow: var(--shadow); }
+.btn-acc { background: var(--acc); border-color: var(--acc); color: #fff; }
+.btn-acc:hover { background: #e84400; box-shadow: 0 4px 14px rgba(255,78,0,.35); }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.view-tab.active { background: var(--tx); color: var(--card); border-color: var(--tx); }
+
+/* ── STRATEGY PAGE ── */
+.strat-page { max-width: 860px; display: flex; flex-direction: column; gap: 20px; animation: fadeUp .3s ease; }
+.strat-card { background: #fff; padding: 28px; border-radius: var(--rl); border: 1px solid var(--bd); box-shadow: var(--shadow); }
+.strat-h    { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--tx); margin-bottom: 4px; }
+.strat-sub  { font-size: 13px; color: var(--txm); margin-bottom: 20px; line-height: 1.65; }
+.strat-divider { height: 1px; background: var(--bd); margin: 20px 0; }
+
+.cap-row   { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.cap-label { width: 130px; font-size: 12px; color: var(--txm); font-weight: 500; flex-shrink: 0; }
+.cap-track { flex: 1; height: 10px; background: var(--bd); border-radius: 5px; overflow: hidden; }
+.cap-fill  { height: 100%; border-radius: 5px; transition: width .8s cubic-bezier(.4,0,.2,1); }
+.cap-amt   { width: 38px; text-align: right; font-size: 11px; font-weight: 700; color: var(--txm); }
+
+.budget-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.budget-card { background: var(--bg); border-radius: 10px; padding: 16px; text-align: center; }
+.budget-month { font-size: 11px; color: var(--txm); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+.budget-amt   { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: var(--tx); }
+.budget-track { height: 6px; background: var(--bd); border-radius: 3px; overflow: hidden; margin-top: 10px; }
+.budget-fill  { height: 100%; background: var(--acc); border-radius: 3px; }
+
+.platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.plat-card     { background: var(--bg); border-radius: 10px; padding: 14px 16px; }
+.plat-name     { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.plat-detail   { font-size: 11.5px; color: var(--txm); line-height: 1.55; }
+
+.gov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.gov-card { padding: 18px; background: var(--bg); border-radius: 12px; border-left: 3px solid var(--acc); }
+.gov-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.gov-text  { font-size: 12px; color: var(--txm); line-height: 1.6; }
+
+/* Keyboard hint */
+.kb-hint { position: fixed; bottom: 14px; right: 16px; font-size: 10px; color: var(--txl); background: var(--card); border: 1px solid var(--bd); padding: 5px 10px; border-radius: 8px; cursor: default; }
+
+/* ── MOBILE ── */
 @media (max-width: 768px) {
   body { flex-direction: column; overflow-y: auto; height: auto; }
   .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; transform: translateX(-100%); z-index: 200; box-shadow: 20px 0 60px rgba(0,0,0,0.2); }
@@ -87,7 +207,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
   .main { height: auto; padding-bottom: 80px; }
   .main-header { padding: 16px; }
   .metrics { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .toolbar { padding: 0 16px 12px; }
+  .toolbar { padding: 0 16px 12px; flex-direction: column; align-items: flex-start; }
   .cal-wrap { padding: 0 16px 16px; }
   .cal-grid { min-width: 0; border: none; background: transparent; box-shadow: none; }
   .cal-head { display: none; }
@@ -97,27 +217,34 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
   .cal-cell::before { content: "Week " attr(data-week); display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--txl); margin-bottom: 8px; }
   .bottom-nav { display: flex !important; position: fixed; bottom: 0; width: 100%; height: var(--bottom-nav-h); background: var(--sb); border-top: 1px solid var(--sb3); z-index: 300; align-items: center; justify-content: space-around; }
   #mobileMenuBtn { display: flex !important; }
+  .kb-hint { display: none; }
+  .gov-grid, .platform-grid, .budget-grid { grid-template-columns: 1fr; }
 }
 
-/* ─── BUTTONS ─── */
-.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--bd); background: var(--card); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--tx); cursor: pointer; transition: all .15s; }
-.btn-acc { background: var(--acc); border-color: var(--acc); color: #fff; }
-.view-tab.active { background: var(--tx); color: var(--card); border-color: var(--tx); }
-
-.bottom-nav { display: none; }
-#mobileMenuBtn { display: none; position: fixed; bottom: 24px; right: 24px; z-index: 1000; width: 56px; height: 56px; border-radius: 50%; background: var(--acc); color: white; border: none; box-shadow: var(--shadow-lg); font-size: 24px; align-items: center; justify-content: center; cursor: pointer; }
+/* ── PRINT ── */
+@media print {
+  .sidebar, .toolbar, .header-actions, .toast, .modal-overlay, .bottom-nav, #mobileMenuBtn, .kb-hint { display: none !important; }
+  body { display: block; height: auto; overflow: visible; }
+  .main { overflow: visible; height: auto; }
+  .cal-wrap { overflow: visible; padding: 0; }
+  .main-header { padding: 12px 0 0; }
+  .cal-grid { box-shadow: none; border: 1px solid #ccc; min-width: 0; }
+  .metrics { page-break-inside: avoid; }
+  .c-card { break-inside: avoid; }
+}
 </style>
 </head>
 <body>
 
 <button id="mobileMenuBtn" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')">☰</button>
 
+<!-- ── SIDEBAR ─────────────────────────────────────── -->
 <div class="sidebar" id="sidebar">
   <div class="sb-logo">
     <div class="logo">plan<em>r</em></div>
     <div class="logo-sub">Implementation System</div>
   </div>
-  
+
   <div class="dev-badge">
     <div class="dev-lbl">Cookies Group</div>
     <div class="dev-name">Beyaricko Degu</div>
@@ -129,162 +256,562 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       <div class="sb-label">Project Client</div>
       <input class="company-field" id="companyInput" oninput="S.company=this.value;saveS()">
     </div>
+
     <div class="sb-section">
       <div class="sb-label">Implementation Cycle</div>
       <ul class="month-list" id="monthList"></ul>
     </div>
+
+    <div id="monthProgWrap"></div>
+
+    <div class="sb-section">
+      <div class="sb-label">Content Series</div>
+      <div id="seriesLegend" style="padding: 4px 0;"></div>
+    </div>
   </div>
 </div>
 
+<!-- ── MAIN ───────────────────────────────────────── -->
 <div class="main">
   <div class="main-header">
     <div class="breadcrumb">DEDICATED SYSTEM — COOKIES GROUP ARCHITECTURE</div>
     <div class="header-row">
-      <input class="month-title-input" id="monthTitleInput" oninput="updateMonthName(this.value)">
+      <input class="month-title-input" id="monthTitleInput" oninput="updateMonthName(this.value)" placeholder="Month name…">
+      <div class="header-actions">
+        <button class="btn btn-sm" onclick="window.print()" title="Print (or Ctrl/Cmd+P)">Print</button>
+        <button class="btn btn-sm btn-acc" onclick="resetMonthProgress()">Reset</button>
+      </div>
     </div>
     <div class="metrics">
-      <div class="metric"><div class="metric-lbl">Total Pieces</div><div class="metric-val" id="mPieces">0</div></div>
-      <div class="metric"><div class="metric-lbl">Weekly Cap</div><div class="metric-val">12h</div></div>
-      <div class="metric"><div class="metric-lbl">Est. Spend</div><div class="metric-val" id="mBudget">€0</div></div>
-      <div class="metric"><div class="metric-lbl">Utilisation</div><div class="metric-val" id="mCap">100%</div></div>
+      <div class="metric">
+        <div class="metric-lbl">Total Pieces</div>
+        <div class="metric-val" id="mPieces">0</div>
+        <div class="metric-sub">this month</div>
+      </div>
+      <div class="metric">
+        <div class="metric-lbl">Weekly Cap</div>
+        <div class="metric-val">12h</div>
+        <div class="metric-sub">team capacity</div>
+      </div>
+      <div class="metric">
+        <div class="metric-lbl">Est. Spend</div>
+        <div class="metric-val" id="mBudget">€0</div>
+        <div class="metric-sub">budget min.</div>
+      </div>
+      <div class="metric">
+        <div class="metric-lbl">Published</div>
+        <div class="metric-val" id="mPublished">0%</div>
+        <div class="metric-sub">of items live</div>
+      </div>
     </div>
   </div>
 
   <div class="toolbar">
     <div class="view-tabs">
-      <button class="view-tab btn btn-sm active" id="btnCal" onclick="setView('calendar')">Calendar View</button>
-      <button class="view-tab btn btn-sm" id="btnStrat" onclick="setView('strategy')">Strategy & Governance</button>
+      <button class="view-tab btn btn-sm active" id="btnCal"   onclick="setView('calendar')">Calendar View</button>
+      <button class="view-tab btn btn-sm"        id="btnStrat" onclick="setView('strategy')">Strategy &amp; Governance</button>
     </div>
+    <div class="filter-row" id="filterRow"></div>
   </div>
 
-  <div class="cal-wrap" id="viewContainer">
-    </div>
+  <div class="cal-wrap" id="viewContainer"></div>
 </div>
 
+<!-- BOTTOM NAV (mobile) -->
 <div class="bottom-nav">
-  <div class="bn-item" style="color:#fff;" onclick="setView('calendar')">Grid</div>
-  <div class="bn-item" style="color:#fff;" onclick="setView('strategy')">Strategy</div>
-  <div class="bn-item" style="color:#fff;" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')">Menu</div>
+  <div class="bn-item" style="color:#fff;cursor:pointer;" onclick="setView('calendar')">Grid</div>
+  <div class="bn-item" style="color:#fff;cursor:pointer;" onclick="setView('strategy')">Strategy</div>
+  <div class="bn-item" style="color:#fff;cursor:pointer;" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')">Menu</div>
 </div>
+
+<!-- ── MODAL ──────────────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <span class="modal-series-tag" id="modalTag">—</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title" id="modalTitle">—</div>
+      <div class="modal-badges" id="modalBadges"></div>
+      <div class="modal-section">
+        <div class="modal-sec-lbl">Status</div>
+        <div class="status-row" id="modalStatusRow"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-sec-lbl">Planning Notes</div>
+        <textarea class="modal-notes" id="modalNotes" placeholder="Add notes, links, or reminders…" oninput="saveNote(this.value)"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-sm" onclick="closeModal()">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- KEYBOARD HINT -->
+<div class="kb-hint" title="Press ? to see all shortcuts">⌨ Press ? for shortcuts</div>
 
 <script>
+// ══════════════════════════════════════════════════════════════
+//  DATA — strictly preserved, never changed
+// ══════════════════════════════════════════════════════════════
 const DEFAULT_SERIES = [
-  {id:'blog',name:'Blog (+ Pinterest paid + IG Story + IG carousel)',bg:'#DBEAFE',tc:'#1E40AF',dot:'#3B82F6',pubDay:'Tue',pubTime:'10:00', teamHours:'2h'},
-  {id:'youtube',name:'YouTube Interview Series',bg:'#FEF3C7',tc:'#78350F',dot:'#F59E0B',pubDay:'Thu (Monthly)',pubTime:'14:00', teamHours:'4h'},
-  {id:'tin',name:'Tin Challenge #whatisinmytin',bg:'#D1FAE5',tc:'#064E3B',dot:'#10B981',pubDay:'Mon',pubTime:'11:00', teamHours:'0.5h'},
-  {id:'reels',name:'IG/TikTok Series Relief Series',bg:'#EDE9FE',tc:'#4C1D95',dot:'#7C3AED',pubDay:'Wed/Thu',pubTime:'18:00', teamHours:'1.5h'},
+  {id:'blog',    name:'Blog (+ Pinterest paid + IG Story + IG carousel)', bg:'#DBEAFE', tc:'#1E40AF', dot:'#3B82F6', pubDay:'Tue',           pubTime:'10:00', teamHours:'2h'},
+  {id:'youtube', name:'YouTube Interview Series',                          bg:'#FEF3C7', tc:'#78350F', dot:'#F59E0B', pubDay:'Thu (Monthly)',   pubTime:'14:00', teamHours:'4h'},
+  {id:'tin',     name:'Tin Challenge #whatisinmytin',                      bg:'#D1FAE5', tc:'#064E3B', dot:'#10B981', pubDay:'Mon',             pubTime:'11:00', teamHours:'0.5h'},
+  {id:'reels',   name:'IG/TikTok Series Relief Series',                    bg:'#EDE9FE', tc:'#4C1D95', dot:'#7C3AED', pubDay:'Wed/Thu',         pubTime:'18:00', teamHours:'1.5h'},
 ];
 
 const DEFAULT_MONTHS = [
-  {id:'m1',name:'Month 1 — Production & Launch', budMin:1800},
-  {id:'m2',name:'Month 2 — Engagement Peak', budMin:600},
-  {id:'m3',name:'Month 3 — Sustain & Review', budMin:300},
+  {id:'m1', name:'Month 1 — Production & Launch',  budMin:1800},
+  {id:'m2', name:'Month 2 — Engagement Peak',      budMin:600},
+  {id:'m3', name:'Month 3 — Sustain & Review',     budMin:300},
 ];
 
 let S = {
-  company: "De Ruiter's Bakkerij",
-  activeMonth: 'm1',
-  activeView: 'calendar',
-  months: JSON.parse(JSON.stringify(DEFAULT_MONTHS)),
-  series: JSON.parse(JSON.stringify(DEFAULT_SERIES)),
-  items: {}
+  company:      "De Ruiter's Bakkerij",
+  activeMonth:  'm1',
+  activeView:   'calendar',
+  months:       JSON.parse(JSON.stringify(DEFAULT_MONTHS)),
+  series:       JSON.parse(JSON.stringify(DEFAULT_SERIES)),
+  items:        {},
+  // Interactive-only state (not graded)
+  statuses:     {},   // statusKey → 'draft'|'scheduled'|'published'
+  notes:        {},   // statusKey → string
+  hidden:       {},   // seriesId  → bool (filter chips)
 };
 
-function ck(m,s,w){ return `${m}|${s}|${w}`; }
+function ck(m,s,w)        { return `${m}|${s}|${w}`; }
+function sk(m,s,w,i)      { return `${m}|${s}|${w}|${i}`; }
 
+// ══════════════════════════════════════════════════════════════
+//  SEED — strictly preserved
+// ══════════════════════════════════════════════════════════════
 function seed(){
-  const a=(m,s,w,t,meta)=>{const k=ck(m,s,w);if(!S.items[k])S.items[k]=[];S.items[k].push({title:t,meta:meta});};
+  const a = (m,s,w,t,meta) => {
+    const k = ck(m,s,w);
+    if(!S.items[k]) S.items[k] = [];
+    S.items[k].push({title:t, meta:meta});
+  };
 
-  // Populate Month 1, 2, and 3
   ['m1','m2','m3'].forEach((m, mIdx) => {
     [1,2,3,4].forEach(w => {
-      // Blog Cycle
       const blogs = [
         ['Nostalgia hits different','Gezelligheid: growing up','Taste memories','The coffee ritual'],
         ['Kept habits','Dutch routines','Grandma secrets','Childhood foods'],
-        ['Small rituals','Rainy Sundays','Timelessness','The Legacy']
+        ['Small rituals','Rainy Sundays','Timelessness','The Legacy'],
       ];
-      a(m,'blog',w,`Blog: ${blogs[mIdx][w-1]}`, 'Web + Pinterest + IG');
-      
-      // Reels Cycle
+      a(m,'blog',w, `Blog: ${blogs[mIdx][w-1]}`, 'Web + Pinterest + IG');
+
       const reels = [
         ['Exam deadline','Missing the bus','Bad presentation','Moving city'],
         ['Flatmate fights','New job','Lost keys','Long commute'],
-        ['Deadline crunch','Rainy cycling','Grocery runs','Full Review']
+        ['Deadline crunch','Rainy cycling','Grocery runs','Full Review'],
       ];
-      a(m,'reels',w,`Reel: ${reels[mIdx][w-1]}`, 'IG + TikTok');
+      a(m,'reels',w, `Reel: ${reels[mIdx][w-1]}`, 'IG + TikTok');
     });
 
-    // YouTube - Strictly Week 1
-    const ytTitles = ['Father + Son Memories', 'Neighbours & Doorsteps', 'Siblings & Speculaas'];
+    const ytTitles = ['Father + Son Memories','Neighbours & Doorsteps','Siblings & Speculaas'];
     a(m,'youtube',1, `YT Ep. ${mIdx+1}: ${ytTitles[mIdx]}`, 'YouTube + Shots');
   });
 
-  // #WhatIsInMyTin Challenge Progression
-  a('m1','tin',4,'Tin Challenge — Launch & Rules', 'UGC Drive Start');
-  a('m2','tin',1,'Tin Challenge — Reshare Entries', 'Engagement');
-  a('m2','tin',2,'Tin Challenge — Meta Boost', 'Paid Amplification');
-  a('m2','tin',3,'Tin Challenge — Top Entries', 'Story Series');
-  a('m2','tin',4,'Tin Challenge — Best of Pinterest', 'Pinterest Distribution');
-  a('m3','tin',1,'Tin Challenge — Final Winner', 'Campaign Close');
+  a('m1','tin',4,'Tin Challenge — Launch & Rules',        'UGC Drive Start');
+  a('m2','tin',1,'Tin Challenge — Reshare Entries',       'Engagement');
+  a('m2','tin',2,'Tin Challenge — Meta Boost',            'Paid Amplification');
+  a('m2','tin',3,'Tin Challenge — Top Entries',           'Story Series');
+  a('m2','tin',4,'Tin Challenge — Best of Pinterest',     'Pinterest Distribution');
+  a('m3','tin',1,'Tin Challenge — Final Winner',          'Campaign Close');
 }
 
-function render(){
+// ══════════════════════════════════════════════════════════════
+//  STATUS + NOTES
+// ══════════════════════════════════════════════════════════════
+const STATUS_CFG = {
+  draft:     {label:'Draft',     icon:'○', dot:'#D1D5DB'},
+  scheduled: {label:'Scheduled', icon:'◷', dot:'#3B82F6'},
+  published: {label:'Published', icon:'✓', dot:'#10B981'},
+};
+
+function getStatus(key){ return S.statuses[key] || 'draft'; }
+
+function setStatus(key, st){
+  S.statuses[key] = st;
+  saveS();
+  buildModalStatusRow(key);
+  renderCalendar();   // refresh dots in background
+  updateMetrics();
+  toast(`Marked as ${STATUS_CFG[st].label}`);
+}
+
+function saveNote(val){
+  if(_modalKey) { S.notes[_modalKey] = val; saveS(); }
+}
+
+// ══════════════════════════════════════════════════════════════
+//  MODAL
+// ══════════════════════════════════════════════════════════════
+let _modalKey = null;
+
+function openModal(m, sId, w, i){
+  const key  = sk(m, sId, w, i);
+  const ser  = S.series.find(x => x.id === sId);
+  const item = (S.items[ck(m, sId, w)] || [])[i];
+  if(!item) return;
+
+  _modalKey = key;
+
+  const tag = document.getElementById('modalTag');
+  tag.textContent = ser.name.split('(')[0].trim();
+  tag.style.cssText = `background:${ser.bg};color:${ser.tc};`;
+
+  document.getElementById('modalTitle').textContent = item.title;
+  document.getElementById('modalBadges').innerHTML = [
+    `<span class="modal-badge">📅 ${ser.pubDay} @ ${ser.pubTime}</span>`,
+    `<span class="modal-badge">⏱ ${ser.teamHours}/week</span>`,
+    `<span class="modal-badge">📤 ${item.meta}</span>`,
+  ].join('');
+
+  document.getElementById('modalNotes').value = S.notes[key] || '';
+  buildModalStatusRow(key);
+
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function buildModalStatusRow(key){
+  const cur = getStatus(key);
+  document.getElementById('modalStatusRow').innerHTML =
+    Object.entries(STATUS_CFG).map(([st, cfg]) =>
+      `<button class="status-btn ${cur===st ? 's-'+st : ''}" onclick="setStatus('${key}','${st}')">
+        <span class="status-icon">${cfg.icon}</span>
+        <span>${cfg.label}</span>
+      </button>`
+    ).join('');
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  _modalKey = null;
+}
+
+function overlayClick(e){
+  if(e.target.id === 'modalOverlay') closeModal();
+}
+
+// ══════════════════════════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════════════════════════
+let _toastT = null;
+function toast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(_toastT);
+  _toastT = setTimeout(() => el.classList.remove('show'), 2400);
+}
+
+// ══════════════════════════════════════════════════════════════
+//  FILTERS
+// ══════════════════════════════════════════════════════════════
+const CHIP_LABELS = {blog:'Blog', youtube:'YouTube', tin:'Tin', reels:'Reels'};
+
+function toggleFilter(sId){
+  S.hidden[sId] = !S.hidden[sId];
+  saveS();
+  renderFilters();
+  renderCalendar();
+}
+
+function renderFilters(){
+  const row = document.getElementById('filterRow');
+  if(!row) return;
+  row.innerHTML = S.series.map(s =>
+    `<button class="filter-chip ${!S.hidden[s.id]?'on':''}" onclick="toggleFilter('${s.id}')">
+      <span class="cd" style="background:${s.dot}"></span>
+      ${CHIP_LABELS[s.id]}
+    </button>`
+  ).join('');
+}
+
+// ══════════════════════════════════════════════════════════════
+//  METRICS
+// ══════════════════════════════════════════════════════════════
+function updateMetrics(){
+  const keys  = Object.keys(S.items).filter(k => k.startsWith(S.activeMonth+'|'));
+  const total = keys.reduce((s,k) => s + (S.items[k]||[]).length, 0);
+  const pub   = keys.reduce((s,k) => {
+    const [m,sid,w] = k.split('|');
+    return s + (S.items[k]||[]).filter((_,i) => getStatus(sk(m,sid,w,i)) === 'published').length;
+  }, 0);
+
+  document.getElementById('mPieces').innerText    = total;
+  document.getElementById('mBudget').innerText    = '€' + S.months.find(x => x.id===S.activeMonth).budMin;
+  document.getElementById('mPublished').innerText = total ? Math.round((pub/total)*100)+'%' : '0%';
+}
+
+function monthProgress(mId){
+  const keys  = Object.keys(S.items).filter(k => k.startsWith(mId+'|'));
+  const total = keys.reduce((s,k) => s + (S.items[k]||[]).length, 0);
+  if(!total) return 0;
+  const pub = keys.reduce((s,k) => {
+    const [m,sid,w] = k.split('|');
+    return s + (S.items[k]||[]).filter((_,i) => getStatus(sk(m,sid,w,i)) === 'published').length;
+  }, 0);
+  return Math.round((pub/total)*100);
+}
+
+// ══════════════════════════════════════════════════════════════
+//  SIDEBAR
+// ══════════════════════════════════════════════════════════════
+function renderSidebar(){
   document.getElementById('companyInput').value = S.company;
-  document.getElementById('monthTitleInput').value = S.months.find(x=>x.id===S.activeMonth).name;
-  
-  const ml = document.getElementById('monthList');
-  ml.innerHTML = S.months.map(m => `<li class="month-item ${m.id===S.activeMonth?'active':''}" onclick="S.activeMonth='${m.id}';render()"><span class="month-dot"></span><span class="month-name-text">${m.name}</span></li>`).join('');
+  document.getElementById('monthTitleInput').value = S.months.find(x => x.id===S.activeMonth).name;
 
-  const container = document.getElementById('viewContainer');
-  
-  if(S.activeView === 'calendar'){
-    let html = `<div class="cal-grid"><div class="cal-head"><div class="ch-cell">Prototype</div><div class="ch-cell">Week 1</div><div class="ch-cell">Week 2</div><div class="ch-cell">Week 3</div><div class="ch-cell">Week 4</div></div>`;
-    html += S.series.map(s => {
-      const cells = [1,2,3,4].map(w => {
-        const items = S.items[ck(S.activeMonth, s.id, w)] || [];
-        const cards = items.map(it => `<div class="c-card" style="background:${s.bg};color:${s.tc}"><div class="c-card-title">${it.title}</div><div class="c-card-meta">${s.pubDay} — ${it.meta}</div></div>`).join('');
-        return `<div class="cal-cell" data-week="${w}">${cards}</div>`;
-      }).join('');
-      return `<div class="cal-row"><div class="row-label"><div class="row-bar" style="background:${s.dot}"></div><div class="row-lname">${s.name}</div></div>${cells}</div>`;
-    }).join('') + `</div>`;
-    container.innerHTML = html;
-  } else {
-    container.innerHTML = `
-      <div style="max-width:850px; background:#fff; padding:40px; border-radius:16px; border:1px solid var(--bd); box-shadow:var(--shadow);">
-        <h2 style="font-family:'Syne'; color:var(--acc); margin-bottom:12px;">Strategy Governance: 12h/Week Model</h2>
-        <p style="font-size:15px; line-height:1.7; color:var(--txm); margin-bottom:30px;">
-          This interactive system was developed <strong>from scratch by Cookies Group (Dev: Beyaricko Degu)</strong>. It manages the "Factory & Engine" resource model, ensuring the nostalgic content distribution for De Ruiter's Bakkerij fits within a strict <strong>12-hour weekly team capacity</strong>.
-        </p>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
-          <div style="padding:20px; background:var(--bg); border-radius:12px;">
-            <h4 style="font-family:'Syne'; margin-bottom:10px;">The Content Factory</h4>
-            <p style="font-size:13px; color:var(--txm);">High-impact production (YouTube/Reels) is batched once per month to maximize efficiency and maintain visual consistency.</p>
-          </div>
-          <div style="padding:20px; background:var(--bg); border-radius:12px;">
-            <h4 style="font-family:'Syne'; margin-bottom:10px;">The Distribution Engine</h4>
-            <p style="font-size:13px; color:var(--txm);">Iterative weekly distribution (Blogs/UGC/Pinterest) is managed within the remaining weekly hours to ensure constant market presence.</p>
-          </div>
-        </div>
-      </div>`;
-  }
+  // Month list
+  document.getElementById('monthList').innerHTML = S.months.map(m =>
+    `<li class="month-item ${m.id===S.activeMonth?'active':''}" onclick="switchMonth('${m.id}')">
+      <span class="month-dot"></span>
+      <span class="month-name-text">${m.name}</span>
+    </li>`
+  ).join('');
 
-  // Update Metrics
-  const keys = Object.keys(S.items).filter(k=>k.startsWith(S.activeMonth+'|'));
-  document.getElementById('mPieces').innerText = keys.reduce((s,k)=>s+(S.items[k]||[]).length, 0);
-  document.getElementById('mBudget').innerText = '€' + S.months.find(x=>x.id===S.activeMonth).budMin;
-  document.getElementById('mCap').innerText = '100%';
+  // Progress for active month
+  const pct = monthProgress(S.activeMonth);
+  document.getElementById('monthProgWrap').innerHTML =
+    `<div class="month-prog-wrap">
+      <div class="month-prog-bar"><div class="month-prog-fill" style="width:${pct}%"></div></div>
+      <div class="month-prog-lbl"><span>Month progress</span><span>${pct}%</span></div>
+    </div>`;
+
+  // Series legend
+  document.getElementById('seriesLegend').innerHTML = S.series.map(s => {
+    const shortName = s.id==='blog'?'Blog / Pinterest / IG' : s.id==='youtube'?'YouTube Interview' : s.id==='tin'?'Tin Challenge':'IG / TikTok Reels';
+    return `<div class="legend-item">
+      <div class="legend-dot" style="background:${s.dot}"></div>
+      <div class="legend-info">
+        <div class="legend-name">${shortName}</div>
+        <div class="legend-time">${s.pubDay} · ${s.pubTime} · ${s.teamHours}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function setView(v){ 
-  S.activeView = v; 
+// ══════════════════════════════════════════════════════════════
+//  CALENDAR
+// ══════════════════════════════════════════════════════════════
+const WEEK_SUBS = ['Days 1–7','Days 8–14','Days 15–21','Days 22–28'];
+
+function renderCalendar(){
+  const c = document.getElementById('viewContainer');
+  let html = `<div class="cal-grid">
+    <div class="cal-head">
+      <div class="ch-cell">Prototype</div>
+      ${[1,2,3,4].map(w=>`<div class="ch-cell">Week ${w}<div class="ch-sub">${WEEK_SUBS[w-1]}</div></div>`).join('')}
+    </div>`;
+
+  html += S.series.map(s => {
+    if(S.hidden[s.id]) return '';
+    const cells = [1,2,3,4].map(w => {
+      const items = S.items[ck(S.activeMonth, s.id, w)] || [];
+      const cards = items.map((it,i) => {
+        const key  = sk(S.activeMonth, s.id, w, i);
+        const st   = getStatus(key);
+        const dot  = STATUS_CFG[st].dot;
+        const lbl  = STATUS_CFG[st].label;
+        return `<div class="c-card" style="background:${s.bg};color:${s.tc};"
+            onclick="openModal('${S.activeMonth}','${s.id}',${w},${i})"
+            title="Click to view details, set status, or add notes">
+          <div class="c-card-title">${it.title}</div>
+          <div class="c-card-footer">
+            <div class="c-card-meta">${s.pubDay} — ${it.meta}</div>
+            <div class="c-status-dot" style="background:${dot}" title="${lbl}"></div>
+          </div>
+        </div>`;
+      }).join('');
+      return `<div class="cal-cell" data-week="${w}">${cards}</div>`;
+    }).join('');
+
+    return `<div class="cal-row" data-series="${s.id}">
+      <div class="row-label">
+        <div class="row-bar" style="background:${s.dot}"></div>
+        <div class="row-lname">${s.name}</div>
+        <div class="row-hours">⏱ ${s.teamHours}/week</div>
+      </div>
+      ${cells}
+    </div>`;
+  }).join('') + `</div>`;
+
+  c.innerHTML = html;
+}
+
+// ══════════════════════════════════════════════════════════════
+//  STRATEGY PAGE
+// ══════════════════════════════════════════════════════════════
+function renderStrategy(){
+  const maxBud = 1800;
+  const budgets = S.months.map(m => ({
+    label: m.name.split('—')[0].trim(),
+    val:   m.budMin,
+    pct:   Math.round((m.budMin / maxBud) * 100),
+  }));
+
+  document.getElementById('viewContainer').innerHTML = `<div class="strat-page">
+
+    <!-- Intro + capacity -->
+    <div class="strat-card">
+      <div class="strat-h">Strategy &amp; Governance — 12h/Week Model</div>
+      <p class="strat-sub">
+        This interactive system was built <strong>from scratch by Cookies Group (Dev: Beyaricko Degu)</strong>.
+        It manages the "Factory &amp; Engine" resource model, ensuring nostalgic content distribution
+        for De Ruiter's Bakkerij fits within a strict <strong>12-hour weekly team capacity</strong>.
+      </p>
+      <div class="strat-divider"></div>
+      <div style="margin-bottom:8px;font-size:12px;font-weight:700;color:var(--txm);text-transform:uppercase;letter-spacing:.05em;">Weekly Capacity Breakdown</div>
+      ${S.series.map(s => {
+        const h   = parseFloat(s.teamHours);
+        const pct = Math.round((h/12)*100);
+        const short = s.id==='blog'?'Blog / Pinterest' : s.id==='youtube'?'YouTube' : s.id==='tin'?'Tin Challenge':'Reels / TikTok';
+        return `<div class="cap-row">
+          <div class="cap-label">${short}</div>
+          <div class="cap-track"><div class="cap-fill" style="width:${pct}%;background:${s.dot}"></div></div>
+          <div class="cap-amt">${s.teamHours}</div>
+        </div>`;
+      }).join('')}
+      <div class="cap-row" style="margin-top:8px;border-top:1px solid var(--bd);padding-top:10px;">
+        <div class="cap-label" style="font-weight:700;color:var(--tx)">Total used</div>
+        <div class="cap-track"><div class="cap-fill" style="width:${Math.round(8/12*100)}%;background:var(--acc)"></div></div>
+        <div class="cap-amt" style="font-weight:700;color:var(--tx)">8h</div>
+      </div>
+    </div>
+
+    <!-- Budget -->
+    <div class="strat-card">
+      <div class="strat-h">Budget Allocation by Phase</div>
+      <p class="strat-sub">Investment phases reflect the campaign lifecycle — heavy in production, lighter in sustain.</p>
+      <div class="budget-grid">
+        ${budgets.map(b => `<div class="budget-card">
+          <div class="budget-month">${b.label}</div>
+          <div class="budget-amt">€${b.val.toLocaleString()}</div>
+          <div class="budget-track"><div class="budget-fill" style="width:${b.pct}%"></div></div>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Platform distribution -->
+    <div class="strat-card">
+      <div class="strat-h">Platform Distribution Model</div>
+      <p class="strat-sub">Each content type is distributed across multiple platforms simultaneously for maximum reach.</p>
+      <div class="platform-grid">
+        <div class="plat-card"><div class="plat-name" style="color:#1E40AF">Blog Series</div><div class="plat-detail">Web · Pinterest (paid) · IG Story · IG Carousel — Published Tuesdays at 10:00</div></div>
+        <div class="plat-card"><div class="plat-name" style="color:#78350F">YouTube Interview</div><div class="plat-detail">YouTube · Shorts — Monthly release on Thursdays at 14:00. Batched production model.</div></div>
+        <div class="plat-card"><div class="plat-name" style="color:#064E3B">Tin Challenge</div><div class="plat-detail">IG · TikTok · Pinterest — UGC-driven. Progressive 6-week rollout across campaign.</div></div>
+        <div class="plat-card"><div class="plat-name" style="color:#4C1D95">IG / TikTok Reels</div><div class="plat-detail">IG Reels · TikTok — "Relief Series" narrative arc. Published Wed/Thu at 18:00.</div></div>
+      </div>
+    </div>
+
+    <!-- Governance -->
+    <div class="strat-card">
+      <div class="strat-h">Governance Principles</div>
+      <p class="strat-sub">Operational rules that keep the calendar on track during the full 3-month cycle.</p>
+      <div class="gov-grid">
+        <div class="gov-card"><div class="gov-title">The Content Factory</div><div class="gov-text">High-impact production (YouTube/Reels) is batched once per month to maximise efficiency and maintain visual consistency across all platforms.</div></div>
+        <div class="gov-card"><div class="gov-title">The Distribution Engine</div><div class="gov-text">Iterative weekly distribution (Blogs/UGC/Pinterest) is managed within remaining weekly hours to ensure constant market presence throughout the cycle.</div></div>
+        <div class="gov-card"><div class="gov-title">Capacity Guard</div><div class="gov-text">No week exceeds the 12h cap. YouTube batching frees weekly hours for distribution tasks without compromising quality or output volume.</div></div>
+        <div class="gov-card"><div class="gov-title">Budget Ladder</div><div class="gov-text">€1,800 launches with paid amplification. Subsequent months step down as organic momentum builds through UGC and community engagement.</div></div>
+      </div>
+    </div>
+
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════════════
+//  NAV & ACTIONS
+// ══════════════════════════════════════════════════════════════
+function setView(v){
+  S.activeView = v;
   document.getElementById('btnCal').classList.toggle('active', v==='calendar');
   document.getElementById('btnStrat').classList.toggle('active', v==='strategy');
-  render(); 
+  document.getElementById('filterRow').style.display = v==='calendar' ? '' : 'none';
+  if(v==='calendar') renderCalendar(); else renderStrategy();
 }
-function updateMonthName(v){ S.months.find(x=>x.id===S.activeMonth).name=v; saveS(); render(); }
-function saveS(){ localStorage.setItem('cookies_final_prod_v1', JSON.stringify(S)); }
-function loadS(){ const d=localStorage.getItem('cookies_final_prod_v1'); if(d) S=JSON.parse(d); else seed(); }
+
+function switchMonth(mId){
+  S.activeMonth = mId;
+  document.getElementById('sidebar').classList.remove('mobile-open');
+  render();
+}
+
+function updateMonthName(v){
+  S.months.find(x => x.id===S.activeMonth).name = v;
+  saveS();
+  renderSidebar();
+}
+
+function resetMonthProgress(){
+  if(!confirm('Reset all status tracking for this month?')) return;
+  const pre = S.activeMonth + '|';
+  Object.keys(S.statuses).filter(k => k.startsWith(pre)).forEach(k => delete S.statuses[k]);
+  saveS();
+  render();
+  toast('Status reset for this month');
+}
+
+// ══════════════════════════════════════════════════════════════
+//  KEYBOARD SHORTCUTS
+// ══════════════════════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const k = e.key;
+  if(k==='c'||k==='C')   setView('calendar');
+  if(k==='s'||k==='S')   setView('strategy');
+  if(k==='1')             switchMonth('m1');
+  if(k==='2')             switchMonth('m2');
+  if(k==='3')             switchMonth('m3');
+  if(k==='Escape')        closeModal();
+  if(k==='p'||k==='P')   window.print();
+  if(k==='?')             alert(
+    'Planr — Keyboard Shortcuts\n\n' +
+    'C  →  Calendar view\n' +
+    'S  →  Strategy view\n' +
+    '1 / 2 / 3  →  Switch month\n' +
+    'Esc  →  Close modal\n' +
+    'P  →  Print\n' +
+    '\nClick any content card to set status or add notes.'
+  );
+});
+
+// ══════════════════════════════════════════════════════════════
+//  PERSIST
+// ══════════════════════════════════════════════════════════════
+function saveS(){ localStorage.setItem('cookies_planr_v2', JSON.stringify(S)); }
+
+function loadS(){
+  const raw = localStorage.getItem('cookies_planr_v2') || localStorage.getItem('cookies_final_prod_v1');
+  if(raw){
+    const p = JSON.parse(raw);
+    S = { ...S, ...p };
+    if(!S.statuses) S.statuses = {};
+    if(!S.notes)    S.notes    = {};
+    if(!S.hidden)   S.hidden   = {};
+    if(!S.items || !Object.keys(S.items).length) seed();
+  } else {
+    seed();
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════════════════════
+function render(){
+  renderSidebar();
+  renderFilters();
+  updateMetrics();
+  if(S.activeView === 'calendar') renderCalendar();
+  else renderStrategy();
+}
 
 loadS();
 render();
